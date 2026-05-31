@@ -1,5 +1,5 @@
 // Generates mock contribution data matching the data contract in
-// src/lib/types.ts and writes it to public/data/contributions.json.
+// src/lib/types.ts and writes per-year files + an index to public/data/.
 //
 // Run: npm run fetch:mock
 //
@@ -12,7 +12,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT = resolve(__dirname, "../public/data/contributions.json");
+const DATA_DIR = resolve(__dirname, "../public/data");
 
 // Deterministic PRNG so mock output is stable across runs.
 function mulberry32(seed) {
@@ -37,30 +37,36 @@ function isoDate(d) {
   return d.toISOString().slice(0, 10);
 }
 
-function buildDays(rand) {
+/** Build mock days for a specific calendar year.
+ *  For the current year, stops at today to match real data behaviour. */
+function buildDaysForYear(rand, year) {
   const days = [];
   const today = new Date();
-  const start = new Date(today);
-  start.setDate(start.getDate() - 364);
+  const start = new Date(year, 0, 1); // Jan 1
+  const end =
+    year === today.getFullYear()
+      ? today
+      : new Date(year, 11, 31); // Dec 31
 
   let total = 0;
-  for (let i = 0; i < 365; i++) {
-    const d = new Date(start);
-    d.setDate(start.getDate() + i);
-
+  for (
+    let d = new Date(start);
+    d <= end;
+    d.setDate(d.getDate() + 1)
+  ) {
     // Bias toward fewer commits, occasional bright bursts.
     const base = Math.pow(rand(), 2.4);
     const burst = rand() > 0.92 ? rand() * 0.6 : 0;
     const count = Math.floor((base + burst) * 15);
     total += count;
 
-    // Pick a language; weekday months lean to a "main" language.
+    // Pick a language; monthly "main" language gives some clustering.
     const monthMain = (d.getMonth() * 7) % LANGUAGES.length;
     const langIdx =
       rand() < 0.7 ? monthMain : Math.floor(rand() * LANGUAGES.length);
 
     days.push({
-      date: isoDate(d),
+      date: isoDate(new Date(d)),
       count,
       language: count > 0 ? LANGUAGES[langIdx].name : null,
     });
@@ -80,29 +86,49 @@ function buildProjects(days, names) {
 }
 
 async function main() {
-  const rand = mulberry32(20260531);
-  const { days, total } = buildDays(rand);
+  const currentYear = new Date().getFullYear();
+  // Generate 3 years of mock data so the year-selector is visible.
+  const mockYears = [currentYear, currentYear - 1, currentYear - 2];
 
-  // Replace these with your real repo names when you switch to live data,
-  // or let the real fetcher fill them in automatically.
   const projectNames = ["Aurora", "Helios", "Nimbus"];
+  const generatedAt = new Date().toISOString();
 
-  const data = {
+  await mkdir(DATA_DIR, { recursive: true });
+
+  for (const year of mockYears) {
+    // Use a deterministic seed derived from the year.
+    const rand = mulberry32(year * 1000 + 42);
+    const { days, total } = buildDaysForYear(rand, year);
+
+    const data = {
+      schemaVersion: 1,
+      user: "<YOUR_GITHUB_USERNAME>",
+      generatedAt,
+      year,
+      totalContributions: total,
+      isMock: true,
+      days,
+      languages: LANGUAGES,
+      projects: buildProjects(days, projectNames),
+    };
+
+    const outPath = resolve(DATA_DIR, `contributions-${year}.json`);
+    await writeFile(outPath, JSON.stringify(data, null, 2) + "\n", "utf8");
+    console.log(
+      `Wrote mock data for ${year}: ${days.length} days, ${total} contributions -> ${outPath}`
+    );
+  }
+
+  // Write index.json.
+  const index = {
     schemaVersion: 1,
     user: "<YOUR_GITHUB_USERNAME>",
-    generatedAt: new Date().toISOString(),
-    totalContributions: total,
-    isMock: true,
-    days,
-    languages: LANGUAGES,
-    projects: buildProjects(days, projectNames),
+    generatedAt,
+    years: mockYears,
   };
-
-  await mkdir(dirname(OUT), { recursive: true });
-  await writeFile(OUT, JSON.stringify(data, null, 2) + "\n", "utf8");
-  console.log(
-    `Wrote mock data: ${days.length} days, ${total} contributions -> ${OUT}`
-  );
+  const indexPath = resolve(DATA_DIR, "index.json");
+  await writeFile(indexPath, JSON.stringify(index, null, 2) + "\n", "utf8");
+  console.log(`Wrote mock index.json -> ${indexPath}`);
 }
 
 main().catch((err) => {

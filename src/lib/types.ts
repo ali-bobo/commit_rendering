@@ -45,6 +45,8 @@ export interface ConstellationData {
   user: string;
   /** ISO timestamp this file was generated. */
   generatedAt: string;
+  /** Calendar year this data covers (YYYY). Present in per-year files. */
+  year?: number;
   /** Total contributions in the covered window. */
   totalContributions: number;
   /** Whether this is mock data (true) or real GitHub data (false). */
@@ -55,4 +57,13 @@ export interface ConstellationData {
   languages: LanguageColor[];
   /** Named constellations from your projects. */
   projects: ProjectConstellation[];
+}
+
+/** Index listing all available years of contribution data. */
+export interface YearIndex {
+  schemaVersion: 1;
+  user: string;
+  generatedAt: string;
+  /** Available years, newest first. */
+  years: number[];
 }

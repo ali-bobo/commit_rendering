@@ -1,11 +1,15 @@
-// Fetches REAL contribution data from the GitHub GraphQL API and writes it to
-// public/data/contributions.json, matching the data contract in src/lib/types.ts.
+// Fetches ALL years of contribution data from the GitHub GraphQL API and writes
+// per-year files plus an index to public/data/.
+//
+// Output:
+//   public/data/index.json               – lists available years, newest first
+//   public/data/contributions-YYYY.json  – per-year data (schemaVersion 1)
 //
 // Run locally:  GITHUB_TOKEN=ghp_xxx GITHUB_USER=yourname npm run fetch:data
 // In CI:        provided by .github/workflows/update-data.yml
 //
 // SECURITY: the token is read ONLY from the environment. It is never written
-// into the output file and never reaches the browser. The output JSON contains
+// into the output files and never reaches the browser. The output JSON contains
 // only public-looking aggregate counts, language names, and dates.
 
 import { writeFile, mkdir } from "node:fs/promises";
@@ -13,7 +17,7 @@ import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-const OUT = resolve(__dirname, "../public/data/contributions.json");
+const DATA_DIR = resolve(__dirname, "../public/data");
 
 const TOKEN = process.env.GITHUB_TOKEN;
 const USER = process.env.GITHUB_USER;
@@ -72,19 +76,12 @@ async function gql(query, variables) {
   return json.data;
 }
 
-const CONTRIB_QUERY = `
+// Fetch user's creation date + latest repo list (for language + constellation info).
+const USER_QUERY = `
 query($login: String!) {
   user(login: $login) {
+    createdAt
     contributionsCollection {
-      contributionCalendar {
-        totalContributions
-        weeks {
-          contributionDays {
-            date
-            contributionCount
-          }
-        }
-      }
       commitContributionsByRepository(maxRepositories: 50) {
         repository {
           name
@@ -96,23 +93,50 @@ query($login: String!) {
   }
 }`;
 
-async function main() {
-  const data = await gql(CONTRIB_QUERY, { login: USER });
-  const cc = data.user.contributionsCollection;
-  const cal = cc.contributionCalendar;
+// Fetch contributions for a specific date range (at most 1 year per call).
+const YEAR_QUERY = `
+query($login: String!, $from: DateTime!, $to: DateTime!) {
+  user(login: $login) {
+    contributionsCollection(from: $from, to: $to) {
+      contributionCalendar {
+        totalContributions
+        weeks {
+          contributionDays {
+            date
+            contributionCount
+          }
+        }
+      }
+    }
+  }
+}`;
 
-  // Flatten calendar into the day list.
+async function fetchYear(year, primaryLang) {
+  const from = `${year}-01-01T00:00:00Z`;
+  const to = `${year}-12-31T23:59:59Z`;
+  const data = await gql(YEAR_QUERY, { login: USER, from, to });
+  const cal = data.user.contributionsCollection.contributionCalendar;
+
   const days = [];
   for (const week of cal.weeks) {
     for (const d of week.contributionDays) {
-      days.push({ date: d.date, count: d.contributionCount, language: null });
+      days.push({
+        date: d.date,
+        count: d.contributionCount,
+        language: d.contributionCount > 0 ? primaryLang : null,
+      });
     }
   }
+  return { days, total: cal.totalContributions };
+}
 
-  // Determine the user's primary language overall (used as a coarse per-day
-  // label, since GitHub's calendar API does not break contributions down by
-  // language per day). Repos are ranked by contribution volume.
-  const repos = cc.commitContributionsByRepository
+async function main() {
+  // 1. Get account creation year + current repo list.
+  const userData = await gql(USER_QUERY, { login: USER });
+  const creationYear = new Date(userData.user.createdAt).getFullYear();
+  const currentYear = new Date().getFullYear();
+
+  const repos = userData.user.contributionsCollection.commitContributionsByRepository
     .map((r) => ({
       name: r.repository.name,
       lang: r.repository.primaryLanguage?.name ?? null,
@@ -121,15 +145,14 @@ async function main() {
     .sort((a, b) => b.total - a.total);
 
   const primaryLang = repos.find((r) => r.lang)?.lang ?? null;
-  for (const day of days) {
-    if (day.count > 0) day.language = primaryLang;
-  }
 
-  // Build the language legend from the languages that actually appear.
-  const langSet = new Set();
-  for (const r of repos) if (r.lang) langSet.add(r.lang);
-  if (primaryLang) langSet.add(primaryLang);
-  const languages = [...langSet].slice(0, 6).map((name) => ({
+  const langSet = new Set(
+    repos
+      .filter((r) => r.lang)
+      .slice(0, 6)
+      .map((r) => r.lang)
+  );
+  const languages = [...langSet].map((name) => ({
     name,
     color: LANG_COLORS[name] ?? FALLBACK_COLOR,
   }));
@@ -137,39 +160,61 @@ async function main() {
     languages.push({ name: "Other", color: FALLBACK_COLOR });
   }
 
-  // Choose which repos become named constellations.
+  // 2. Determine which repos become named constellations.
   const chosen =
     PROJECT_REPOS.length > 0
       ? PROJECT_REPOS
       : repos.slice(0, 3).map((r) => r.name);
 
-  // For each chosen project, pick its constellation stars as the brightest
-  // contribution days overall, partitioned so the constellations don't overlap.
-  const brightest = [...days]
-    .filter((d) => d.count > 0)
-    .sort((a, b) => b.count - a.count);
-  const projects = chosen.map((name, i) => ({
-    name,
-    starDates: brightest.slice(i * 5, i * 5 + 5).map((d) => d.date),
-  }));
+  // 3. Fetch each year from account creation to now (newest first).
+  const years = [];
+  for (let y = currentYear; y >= creationYear; y--) {
+    years.push(y);
+  }
 
-  const out = {
+  await mkdir(DATA_DIR, { recursive: true });
+  const generatedAt = new Date().toISOString();
+
+  for (const year of years) {
+    const { days, total } = await fetchYear(year, primaryLang);
+
+    const brightest = [...days]
+      .filter((d) => d.count > 0)
+      .sort((a, b) => b.count - a.count);
+    const projects = chosen.map((name, i) => ({
+      name,
+      starDates: brightest.slice(i * 5, i * 5 + 5).map((d) => d.date),
+    }));
+
+    const out = {
+      schemaVersion: 1,
+      user: USER,
+      generatedAt,
+      year,
+      totalContributions: total,
+      isMock: false,
+      days,
+      languages,
+      projects,
+    };
+
+    const outPath = resolve(DATA_DIR, `contributions-${year}.json`);
+    await writeFile(outPath, JSON.stringify(out, null, 2) + "\n", "utf8");
+    console.log(
+      `Year ${year}: ${days.length} days, ${total} contributions -> ${outPath}`
+    );
+  }
+
+  // 4. Write index.json listing all years (newest first).
+  const index = {
     schemaVersion: 1,
     user: USER,
-    generatedAt: new Date().toISOString(),
-    totalContributions: cal.totalContributions,
-    isMock: false,
-    days,
-    languages,
-    projects,
+    generatedAt,
+    years,
   };
-
-  await mkdir(dirname(OUT), { recursive: true });
-  await writeFile(OUT, JSON.stringify(out, null, 2) + "\n", "utf8");
-  console.log(
-    `Wrote real data for ${USER}: ${days.length} days, ` +
-      `${cal.totalContributions} contributions -> ${OUT}`
-  );
+  const indexPath = resolve(DATA_DIR, "index.json");
+  await writeFile(indexPath, JSON.stringify(index, null, 2) + "\n", "utf8");
+  console.log(`Wrote index.json: years [${years.join(", ")}] -> ${indexPath}`);
 }
 
 main().catch((err) => {

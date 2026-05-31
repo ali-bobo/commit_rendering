@@ -45,12 +45,12 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Ensure data file exists
+      - name: Ensure data files exist
         # If the data-update job hasn't run yet, fall back to mock data so the
         # first deploy still renders something.
         run: |
-          if [ ! -f public/data/contributions.json ]; then
-            echo "No data file found; generating mock data for first deploy."
+          if [ ! -f public/data/index.json ]; then
+            echo "No index.json found; generating mock data for first deploy."
             node scripts/generate-mock.mjs
           fi
 

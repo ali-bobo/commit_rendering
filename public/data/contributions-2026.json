@@ -1,0 +1,824 @@
+{
+  "schemaVersion": 1,
+  "user": "<YOUR_GITHUB_USERNAME>",
+  "generatedAt": "2026-05-31T23:10:07.195Z",
+  "year": 2026,
+  "totalContributions": 674,
+  "isMock": true,
+  "days": [
+    {
+      "date": "2025-12-31",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-01",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-02",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-03",
+      "count": 8,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-04",
+      "count": 2,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-05",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-06",
+      "count": 1,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-07",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-08",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-09",
+      "count": 3,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-10",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-11",
+      "count": 7,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-12",
+      "count": 9,
+      "language": "Python"
+    },
+    {
+      "date": "2026-01-13",
+      "count": 1,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-14",
+      "count": 4,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-01-15",
+      "count": 9,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-16",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-17",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-18",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-19",
+      "count": 5,
+      "language": "Go"
+    },
+    {
+      "date": "2026-01-20",
+      "count": 3,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-21",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-22",
+      "count": 2,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-23",
+      "count": 10,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-24",
+      "count": 1,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-25",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-26",
+      "count": 9,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-27",
+      "count": 3,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-28",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-01-29",
+      "count": 7,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-01-30",
+      "count": 12,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-01-31",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-01",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-02",
+      "count": 1,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-03",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-04",
+      "count": 8,
+      "language": "Python"
+    },
+    {
+      "date": "2026-02-05",
+      "count": 11,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-06",
+      "count": 1,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-07",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-08",
+      "count": 8,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-09",
+      "count": 5,
+      "language": "Go"
+    },
+    {
+      "date": "2026-02-10",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-11",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-12",
+      "count": 4,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-13",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-14",
+      "count": 9,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-15",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-16",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-17",
+      "count": 8,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-18",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-19",
+      "count": 11,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-20",
+      "count": 2,
+      "language": "Go"
+    },
+    {
+      "date": "2026-02-21",
+      "count": 2,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-22",
+      "count": 1,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-23",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-24",
+      "count": 9,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-25",
+      "count": 10,
+      "language": "Python"
+    },
+    {
+      "date": "2026-02-26",
+      "count": 6,
+      "language": "Python"
+    },
+    {
+      "date": "2026-02-27",
+      "count": 6,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-02-28",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-01",
+      "count": 13,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-02",
+      "count": 13,
+      "language": "Python"
+    },
+    {
+      "date": "2026-03-03",
+      "count": 10,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-04",
+      "count": 1,
+      "language": "Go"
+    },
+    {
+      "date": "2026-03-05",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-06",
+      "count": 7,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-07",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-08",
+      "count": 7,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-09",
+      "count": 7,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-10",
+      "count": 11,
+      "language": "Python"
+    },
+    {
+      "date": "2026-03-11",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-12",
+      "count": 7,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-03-13",
+      "count": 4,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-14",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-15",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-16",
+      "count": 11,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-17",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-18",
+      "count": 11,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-19",
+      "count": 7,
+      "language": "Go"
+    },
+    {
+      "date": "2026-03-20",
+      "count": 14,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-21",
+      "count": 8,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-22",
+      "count": 9,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-03-23",
+      "count": 5,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-24",
+      "count": 1,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-25",
+      "count": 10,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-26",
+      "count": 8,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-27",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-28",
+      "count": 1,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-03-29",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-30",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-03-31",
+      "count": 1,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-04-01",
+      "count": 2,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-02",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-03",
+      "count": 6,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-04",
+      "count": 14,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-04-05",
+      "count": 14,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-06",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-07",
+      "count": 7,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-08",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-09",
+      "count": 13,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-10",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-11",
+      "count": 14,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-12",
+      "count": 9,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-13",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-14",
+      "count": 8,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-15",
+      "count": 4,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-16",
+      "count": 7,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-17",
+      "count": 2,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-18",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-19",
+      "count": 11,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-20",
+      "count": 7,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-21",
+      "count": 2,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-22",
+      "count": 1,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-23",
+      "count": 6,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-24",
+      "count": 12,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-25",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-26",
+      "count": 8,
+      "language": "Python"
+    },
+    {
+      "date": "2026-04-27",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-28",
+      "count": 4,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-04-29",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-04-30",
+      "count": 6,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-01",
+      "count": 12,
+      "language": "Rust"
+    },
+    {
+      "date": "2026-05-02",
+      "count": 1,
+      "language": "GLSL"
+    },
+    {
+      "date": "2026-05-03",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-04",
+      "count": 14,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-05",
+      "count": 13,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-06",
+      "count": 7,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-07",
+      "count": 6,
+      "language": "Python"
+    },
+    {
+      "date": "2026-05-08",
+      "count": 2,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-09",
+      "count": 13,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-10",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-11",
+      "count": 10,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-12",
+      "count": 3,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-13",
+      "count": 3,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-14",
+      "count": 10,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-15",
+      "count": 5,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-16",
+      "count": 9,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-17",
+      "count": 3,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-18",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-19",
+      "count": 5,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-20",
+      "count": 7,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-21",
+      "count": 9,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-05-22",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-23",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-24",
+      "count": 2,
+      "language": "TypeScript"
+    },
+    {
+      "date": "2026-05-25",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-26",
+      "count": 3,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-27",
+      "count": 4,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-28",
+      "count": 11,
+      "language": "Go"
+    },
+    {
+      "date": "2026-05-29",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-30",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-31",
+      "count": 1,
+      "language": "TypeScript"
+    }
+  ],
+  "languages": [
+    {
+      "name": "TypeScript",
+      "color": "#ff9e7a"
+    },
+    {
+      "name": "Python",
+      "color": "#ffcaa0"
+    },
+    {
+      "name": "Rust",
+      "color": "#ff7a9e"
+    },
+    {
+      "name": "Go",
+      "color": "#ffb0d0"
+    },
+    {
+      "name": "GLSL",
+      "color": "#ffd9b0"
+    }
+  ],
+  "projects": [
+    {
+      "name": "Aurora",
+      "starDates": [
+        "2026-03-20",
+        "2026-04-04",
+        "2026-04-05",
+        "2026-04-11",
+        "2026-05-04"
+      ]
+    },
+    {
+      "name": "Helios",
+      "starDates": [
+        "2026-03-01",
+        "2026-03-02",
+        "2026-04-09",
+        "2026-05-05",
+        "2026-05-09"
+      ]
+    },
+    {
+      "name": "Nimbus",
+      "starDates": [
+        "2026-01-30",
+        "2026-04-24",
+        "2026-05-01",
+        "2026-02-05",
+        "2026-02-19"
+      ]
+    }
+  ]
+}

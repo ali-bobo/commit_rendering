@@ -173,3 +173,34 @@ body {
   color: rgba(231, 184, 172, 0.6);
   font-family: ui-sans-serif, system-ui, sans-serif;
 }
+
+.app-years {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.app-year-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--ink-dim);
+  border-radius: 999px;
+  padding: 4px 16px;
+  font-size: 13px;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.app-year-btn:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+
+.app-year-btn.active {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(255, 158, 122, 0.12);
+}
