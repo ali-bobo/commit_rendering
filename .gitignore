@@ -28,6 +28,9 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# Local AI agent settings (no relevance to project consumers).
+.claude/
+
 # TypeScript build info
 *.tsbuildinfo
 
