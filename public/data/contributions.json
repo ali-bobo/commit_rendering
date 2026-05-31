@@ -1,64 +1,64 @@
 {
   "schemaVersion": 1,
-  "user": "<YOUR_GITHUB_USERNAME>",
-  "generatedAt": "2026-05-31T22:35:19.876Z",
-  "totalContributions": 1556,
-  "isMock": true,
+  "user": "ali-bobo",
+  "generatedAt": "2026-05-31T22:57:26.451Z",
+  "totalContributions": 74,
+  "isMock": false,
   "days": [
     {
       "date": "2025-06-01",
-      "count": 6,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-02",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-03",
-      "count": 14,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-04",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-05",
-      "count": 1,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-06",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-07",
-      "count": 10,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-08",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-09",
-      "count": 5,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-10",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-11",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-12",
@@ -67,8 +67,8 @@
     },
     {
       "date": "2025-06-13",
-      "count": 5,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-14",
@@ -77,8 +77,8 @@
     },
     {
       "date": "2025-06-15",
-      "count": 10,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-16",
@@ -87,13 +87,13 @@
     },
     {
       "date": "2025-06-17",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-18",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-19",
@@ -107,28 +107,28 @@
     },
     {
       "date": "2025-06-21",
-      "count": 8,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-22",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-23",
-      "count": 11,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-24",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-25",
-      "count": 9,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-26",
@@ -137,13 +137,13 @@
     },
     {
       "date": "2025-06-27",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-28",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-06-29",
@@ -152,23 +152,23 @@
     },
     {
       "date": "2025-06-30",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-01",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-02",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-03",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-04",
@@ -177,18 +177,18 @@
     },
     {
       "date": "2025-07-05",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-06",
-      "count": 14,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-07",
-      "count": 8,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-08",
@@ -197,38 +197,38 @@
     },
     {
       "date": "2025-07-09",
-      "count": 8,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-10",
-      "count": 9,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-11",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-12",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-13",
-      "count": 6,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-14",
-      "count": 20,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-15",
-      "count": 14,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-16",
@@ -237,13 +237,13 @@
     },
     {
       "date": "2025-07-17",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-18",
-      "count": 7,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-19",
@@ -252,18 +252,18 @@
     },
     {
       "date": "2025-07-20",
-      "count": 10,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-21",
-      "count": 9,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-22",
-      "count": 5,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-23",
@@ -272,18 +272,18 @@
     },
     {
       "date": "2025-07-24",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-25",
-      "count": 11,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-26",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-27",
@@ -297,13 +297,13 @@
     },
     {
       "date": "2025-07-29",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-30",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-07-31",
@@ -312,13 +312,13 @@
     },
     {
       "date": "2025-08-01",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-02",
-      "count": 8,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-03",
@@ -327,8 +327,8 @@
     },
     {
       "date": "2025-08-04",
-      "count": 6,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-05",
@@ -337,8 +337,8 @@
     },
     {
       "date": "2025-08-06",
-      "count": 13,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-07",
@@ -347,18 +347,18 @@
     },
     {
       "date": "2025-08-08",
-      "count": 4,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-09",
-      "count": 1,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-10",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-11",
@@ -367,13 +367,13 @@
     },
     {
       "date": "2025-08-12",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-13",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-14",
@@ -382,8 +382,8 @@
     },
     {
       "date": "2025-08-15",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-16",
@@ -392,8 +392,8 @@
     },
     {
       "date": "2025-08-17",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-18",
@@ -402,18 +402,18 @@
     },
     {
       "date": "2025-08-19",
-      "count": 2,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-20",
-      "count": 7,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-21",
-      "count": 6,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-22",
@@ -422,28 +422,28 @@
     },
     {
       "date": "2025-08-23",
-      "count": 14,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-24",
-      "count": 10,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-25",
-      "count": 16,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-26",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-27",
-      "count": 9,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-28",
@@ -452,23 +452,23 @@
     },
     {
       "date": "2025-08-29",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-30",
-      "count": 8,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-08-31",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-01",
-      "count": 4,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-02",
@@ -477,48 +477,48 @@
     },
     {
       "date": "2025-09-03",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-04",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-05",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-06",
-      "count": 7,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-07",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-08",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-09",
-      "count": 14,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-10",
-      "count": 9,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-11",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-12",
@@ -527,8 +527,8 @@
     },
     {
       "date": "2025-09-13",
-      "count": 10,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-14",
@@ -547,8 +547,8 @@
     },
     {
       "date": "2025-09-17",
-      "count": 10,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-18",
@@ -557,8 +557,8 @@
     },
     {
       "date": "2025-09-19",
-      "count": 5,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-20",
@@ -567,8 +567,8 @@
     },
     {
       "date": "2025-09-21",
-      "count": 8,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-22",
@@ -577,8 +577,8 @@
     },
     {
       "date": "2025-09-23",
-      "count": 4,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-24",
@@ -592,23 +592,23 @@
     },
     {
       "date": "2025-09-26",
-      "count": 14,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-27",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-28",
-      "count": 2,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-29",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-09-30",
@@ -617,23 +617,23 @@
     },
     {
       "date": "2025-10-01",
-      "count": 1,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-02",
-      "count": 8,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-03",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-04",
-      "count": 5,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-05",
@@ -642,13 +642,13 @@
     },
     {
       "date": "2025-10-06",
-      "count": 6,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-07",
-      "count": 1,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-08",
@@ -657,23 +657,23 @@
     },
     {
       "date": "2025-10-09",
-      "count": 9,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-10",
-      "count": 3,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-11",
-      "count": 9,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-12",
-      "count": 3,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-13",
@@ -682,13 +682,13 @@
     },
     {
       "date": "2025-10-14",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-15",
-      "count": 11,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-16",
@@ -697,18 +697,18 @@
     },
     {
       "date": "2025-10-17",
-      "count": 8,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-18",
-      "count": 7,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-19",
-      "count": 16,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-20",
@@ -717,23 +717,23 @@
     },
     {
       "date": "2025-10-21",
-      "count": 1,
-      "language": "Go"
+      "count": 5,
+      "language": "JavaScript"
     },
     {
       "date": "2025-10-22",
-      "count": 7,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-23",
-      "count": 6,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-24",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-25",
@@ -742,33 +742,33 @@
     },
     {
       "date": "2025-10-26",
-      "count": 13,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-27",
-      "count": 4,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-28",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-29",
-      "count": 2,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-30",
-      "count": 15,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-10-31",
-      "count": 6,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-01",
@@ -777,8 +777,8 @@
     },
     {
       "date": "2025-11-02",
-      "count": 12,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-03",
@@ -787,23 +787,23 @@
     },
     {
       "date": "2025-11-04",
-      "count": 8,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-05",
-      "count": 14,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-06",
-      "count": 14,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-07",
-      "count": 6,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-08",
@@ -817,8 +817,8 @@
     },
     {
       "date": "2025-11-10",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-11",
@@ -832,68 +832,68 @@
     },
     {
       "date": "2025-11-13",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-14",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-15",
-      "count": 9,
-      "language": "TypeScript"
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2025-11-16",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-17",
-      "count": 5,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-18",
-      "count": 6,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-19",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-20",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-21",
-      "count": 11,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-22",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-23",
-      "count": 11,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-24",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-25",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-26",
@@ -907,13 +907,13 @@
     },
     {
       "date": "2025-11-28",
-      "count": 5,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-29",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-11-30",
@@ -922,23 +922,23 @@
     },
     {
       "date": "2025-12-01",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-02",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-03",
-      "count": 12,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-04",
-      "count": 11,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-05",
@@ -947,18 +947,18 @@
     },
     {
       "date": "2025-12-06",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-07",
-      "count": 9,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-08",
-      "count": 11,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-09",
@@ -967,13 +967,13 @@
     },
     {
       "date": "2025-12-10",
-      "count": 13,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-11",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-12",
@@ -987,13 +987,13 @@
     },
     {
       "date": "2025-12-14",
-      "count": 8,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-15",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-16",
@@ -1002,18 +1002,18 @@
     },
     {
       "date": "2025-12-17",
-      "count": 13,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-18",
-      "count": 5,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-19",
-      "count": 6,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-20",
@@ -1027,13 +1027,13 @@
     },
     {
       "date": "2025-12-22",
-      "count": 6,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-23",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-24",
@@ -1042,18 +1042,18 @@
     },
     {
       "date": "2025-12-25",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-26",
-      "count": 6,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-27",
-      "count": 5,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-28",
@@ -1062,8 +1062,8 @@
     },
     {
       "date": "2025-12-29",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2025-12-30",
@@ -1077,23 +1077,23 @@
     },
     {
       "date": "2026-01-01",
-      "count": 13,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-02",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-03",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-04",
-      "count": 5,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-05",
@@ -1102,28 +1102,28 @@
     },
     {
       "date": "2026-01-06",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-07",
-      "count": 11,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-08",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-09",
-      "count": 8,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-10",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-11",
@@ -1132,8 +1132,8 @@
     },
     {
       "date": "2026-01-12",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-13",
@@ -1147,53 +1147,53 @@
     },
     {
       "date": "2026-01-15",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-16",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-17",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-18",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-19",
-      "count": 17,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-20",
-      "count": 7,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-21",
-      "count": 6,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-22",
-      "count": 8,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-23",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-24",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-25",
@@ -1202,8 +1202,8 @@
     },
     {
       "date": "2026-01-26",
-      "count": 5,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-27",
@@ -1217,23 +1217,23 @@
     },
     {
       "date": "2026-01-29",
-      "count": 4,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-30",
-      "count": 10,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-01-31",
-      "count": 3,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-01",
-      "count": 5,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-02",
@@ -1242,23 +1242,23 @@
     },
     {
       "date": "2026-02-03",
-      "count": 8,
-      "language": "Rust"
-    },
-    {
-      "date": "2026-02-04",
-      "count": 6,
-      "language": "Rust"
-    },
-    {
-      "date": "2026-02-05",
       "count": 0,
       "language": null
     },
     {
+      "date": "2026-02-04",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-02-05",
+      "count": 2,
+      "language": "JavaScript"
+    },
+    {
       "date": "2026-02-06",
-      "count": 11,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-07",
@@ -1267,58 +1267,58 @@
     },
     {
       "date": "2026-02-08",
-      "count": 6,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-09",
-      "count": 13,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-10",
-      "count": 9,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-11",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-12",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-13",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-14",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-15",
-      "count": 8,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-16",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-17",
-      "count": 7,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-18",
-      "count": 14,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-19",
@@ -1327,8 +1327,8 @@
     },
     {
       "date": "2026-02-20",
-      "count": 2,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-21",
@@ -1337,13 +1337,13 @@
     },
     {
       "date": "2026-02-22",
-      "count": 5,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-23",
-      "count": 1,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-24",
@@ -1352,8 +1352,8 @@
     },
     {
       "date": "2026-02-25",
-      "count": 7,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-26",
@@ -1362,38 +1362,38 @@
     },
     {
       "date": "2026-02-27",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-02-28",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-01",
-      "count": 1,
-      "language": "GLSL"
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2026-03-02",
-      "count": 13,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-03",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-04",
-      "count": 6,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-05",
-      "count": 4,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-06",
@@ -1402,23 +1402,23 @@
     },
     {
       "date": "2026-03-07",
-      "count": 5,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-08",
-      "count": 4,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-09",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-10",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-11",
@@ -1432,8 +1432,8 @@
     },
     {
       "date": "2026-03-13",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-14",
@@ -1442,8 +1442,8 @@
     },
     {
       "date": "2026-03-15",
-      "count": 8,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-16",
@@ -1452,8 +1452,8 @@
     },
     {
       "date": "2026-03-17",
-      "count": 11,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-18",
@@ -1462,13 +1462,13 @@
     },
     {
       "date": "2026-03-19",
-      "count": 5,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-20",
-      "count": 13,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-21",
@@ -1477,8 +1477,8 @@
     },
     {
       "date": "2026-03-22",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-23",
@@ -1487,28 +1487,28 @@
     },
     {
       "date": "2026-03-24",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-25",
-      "count": 3,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-26",
-      "count": 2,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-27",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-28",
-      "count": 1,
-      "language": "GLSL"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-03-29",
@@ -1522,8 +1522,8 @@
     },
     {
       "date": "2026-03-31",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-01",
@@ -1537,13 +1537,13 @@
     },
     {
       "date": "2026-04-03",
-      "count": 5,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-04",
-      "count": 1,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-05",
@@ -1552,13 +1552,13 @@
     },
     {
       "date": "2026-04-06",
-      "count": 14,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-07",
-      "count": 10,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-08",
@@ -1567,28 +1567,28 @@
     },
     {
       "date": "2026-04-09",
-      "count": 14,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-10",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-11",
-      "count": 5,
-      "language": "TypeScript"
+      "count": 10,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-12",
-      "count": 2,
-      "language": "Python"
+      "count": 36,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-13",
-      "count": 4,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-14",
@@ -1597,18 +1597,18 @@
     },
     {
       "date": "2026-04-15",
-      "count": 3,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-16",
-      "count": 4,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-17",
-      "count": 7,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-18",
@@ -1622,13 +1622,13 @@
     },
     {
       "date": "2026-04-20",
-      "count": 2,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-21",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-22",
@@ -1637,43 +1637,43 @@
     },
     {
       "date": "2026-04-23",
-      "count": 9,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-24",
-      "count": 6,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-25",
-      "count": 2,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-26",
-      "count": 5,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-27",
-      "count": 7,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-28",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-29",
-      "count": 13,
-      "language": "Python"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-04-30",
-      "count": 5,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-01",
@@ -1682,8 +1682,8 @@
     },
     {
       "date": "2026-05-02",
-      "count": 0,
-      "language": null
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-03",
@@ -1692,8 +1692,8 @@
     },
     {
       "date": "2026-05-04",
-      "count": 6,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-05",
@@ -1702,8 +1702,8 @@
     },
     {
       "date": "2026-05-06",
-      "count": 12,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-07",
@@ -1712,8 +1712,8 @@
     },
     {
       "date": "2026-05-08",
-      "count": 8,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-09",
@@ -1722,8 +1722,8 @@
     },
     {
       "date": "2026-05-10",
-      "count": 8,
-      "language": "Go"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-11",
@@ -1732,83 +1732,83 @@
     },
     {
       "date": "2026-05-12",
-      "count": 11,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-13",
-      "count": 7,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-14",
-      "count": 3,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-15",
-      "count": 12,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-16",
-      "count": 9,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-17",
-      "count": 5,
-      "language": "Rust"
-    },
-    {
-      "date": "2026-05-18",
-      "count": 1,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-19",
-      "count": 6,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-20",
-      "count": 3,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-21",
-      "count": 5,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-22",
-      "count": 8,
-      "language": "GLSL"
-    },
-    {
-      "date": "2026-05-23",
-      "count": 6,
-      "language": "GLSL"
-    },
-    {
-      "date": "2026-05-24",
-      "count": 3,
-      "language": "Go"
-    },
-    {
-      "date": "2026-05-25",
       "count": 0,
       "language": null
     },
     {
-      "date": "2026-05-26",
+      "date": "2026-05-13",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-14",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-15",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-16",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-17",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-18",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-19",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-20",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-21",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-22",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-23",
       "count": 2,
-      "language": "Go"
+      "language": "JavaScript"
+    },
+    {
+      "date": "2026-05-24",
+      "count": 0,
+      "language": null
+    },
+    {
+      "date": "2026-05-25",
+      "count": 2,
+      "language": "JavaScript"
+    },
+    {
+      "date": "2026-05-26",
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-27",
-      "count": 12,
-      "language": "Rust"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-28",
@@ -1822,67 +1822,57 @@
     },
     {
       "date": "2026-05-30",
-      "count": 14,
-      "language": "TypeScript"
+      "count": 0,
+      "language": null
     },
     {
       "date": "2026-05-31",
-      "count": 3,
-      "language": "TypeScript"
+      "count": 8,
+      "language": "JavaScript"
     }
   ],
   "languages": [
     {
-      "name": "TypeScript",
-      "color": "#ff9e7a"
+      "name": "JavaScript",
+      "color": "#ffd9b0"
     },
     {
-      "name": "Python",
+      "name": "CSS",
+      "color": "#ffd9b0"
+    },
+    {
+      "name": "Shell",
       "color": "#ffcaa0"
     },
     {
-      "name": "Rust",
-      "color": "#ff7a9e"
-    },
-    {
-      "name": "Go",
+      "name": "HTML",
       "color": "#ffb0d0"
-    },
-    {
-      "name": "GLSL",
-      "color": "#ffd9b0"
     }
   ],
   "projects": [
     {
-      "name": "Aurora",
+      "name": "maplestory-platformer",
       "starDates": [
-        "2025-07-14",
-        "2026-01-19",
-        "2025-08-25",
-        "2025-10-19",
-        "2025-10-30"
+        "2026-04-12",
+        "2026-04-11",
+        "2026-05-31",
+        "2025-10-21",
+        "2025-11-15"
       ]
     },
     {
-      "name": "Helios",
+      "name": "cybercv-resume",
       "starDates": [
-        "2025-06-03",
-        "2025-07-06",
-        "2025-07-15",
-        "2025-08-23",
-        "2025-09-09"
+        "2026-03-01",
+        "2026-05-02",
+        "2026-02-05",
+        "2026-05-23",
+        "2026-05-25"
       ]
     },
     {
-      "name": "Nimbus",
-      "starDates": [
-        "2025-09-26",
-        "2025-11-05",
-        "2025-11-06",
-        "2026-02-18",
-        "2026-04-06"
-      ]
+      "name": "basic_check_tookit",
+      "starDates": []
     }
   ]
 }
