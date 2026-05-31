@@ -1,0 +1,56 @@
+name: Update contribution data
+
+# Auto-updates public/data/contributions.json from the GitHub API, then commits
+# it back. GitHub Pages redeploys automatically from the deploy workflow.
+
+on:
+  schedule:
+    # Daily at 04:17 UTC. Off-the-hour to avoid GitHub's scheduling congestion.
+    - cron: "17 4 * * *"
+  workflow_dispatch: {} # allow manual runs from the Actions tab
+
+# Minimal permissions: this job only needs to write the committed data file.
+permissions:
+  contents: write
+
+concurrency:
+  group: update-data
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Fetch contribution data
+        env:
+          # GITHUB_TOKEN is provided automatically by Actions and is scoped to
+          # this repo only. It can read your PUBLIC contribution calendar.
+          # To include PRIVATE contributions, create a fine-grained PAT with
+          # read-only "Contributions" + "Metadata" access, store it as the
+          # repo secret CONSTELLATION_TOKEN, and it will be used instead.
+          GITHUB_TOKEN: ${{ secrets.CONSTELLATION_TOKEN || secrets.GITHUB_TOKEN }}
+          GITHUB_USER: ${{ github.repository_owner }}
+          # Optional: comma-separated repo names to turn into named
+          # constellations. Leave unset to auto-pick your top repos.
+          PROJECT_REPOS: ${{ vars.PROJECT_REPOS }}
+        run: node scripts/fetch-contributions.mjs
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet -- public/data/contributions.json; then
+            echo "No changes to commit."
+          else
+            git add public/data/contributions.json
+            git commit -m "chore: update contribution data [skip ci]"
+            git push
+          fi
