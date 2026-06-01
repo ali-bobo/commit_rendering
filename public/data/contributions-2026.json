@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-01T05:57:28.161Z",
+  "generatedAt": "2026-06-01T23:16:35.535Z",
   "year": 2026,
-  "totalContributions": 69,
+  "totalContributions": 192,
   "isMock": false,
   "days": [
     {
@@ -478,13 +478,13 @@
     },
     {
       "date": "2026-04-05",
-      "count": 0,
-      "language": null
+      "count": 6,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-06",
-      "count": 0,
-      "language": null
+      "count": 15,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-07",
@@ -493,13 +493,13 @@
     },
     {
       "date": "2026-04-08",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-09",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-10",
@@ -533,48 +533,48 @@
     },
     {
       "date": "2026-04-16",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-17",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-18",
-      "count": 0,
-      "language": null
+      "count": 22,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-19",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-20",
-      "count": 0,
-      "language": null
+      "count": 8,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-21",
-      "count": 0,
-      "language": null
+      "count": 8,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-22",
-      "count": 0,
-      "language": null
+      "count": 8,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-23",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-24",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-25",
@@ -583,28 +583,28 @@
     },
     {
       "date": "2026-04-26",
-      "count": 0,
-      "language": null
+      "count": 5,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-27",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-28",
-      "count": 0,
-      "language": null
+      "count": 5,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-29",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-04-30",
-      "count": 0,
-      "language": null
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-01",
@@ -628,13 +628,13 @@
     },
     {
       "date": "2026-05-05",
-      "count": 0,
-      "language": null
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-06",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-07",
@@ -653,13 +653,13 @@
     },
     {
       "date": "2026-05-10",
-      "count": 0,
-      "language": null
+      "count": 12,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-11",
-      "count": 0,
-      "language": null
+      "count": 3,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-12",
@@ -698,8 +698,8 @@
     },
     {
       "date": "2026-05-19",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-20",
@@ -708,8 +708,8 @@
     },
     {
       "date": "2026-05-21",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "JavaScript"
     },
     {
       "date": "2026-05-22",
@@ -763,13 +763,13 @@
     },
     {
       "date": "2026-06-01",
-      "count": 3,
+      "count": 7,
       "language": "JavaScript"
     },
     {
       "date": "2026-06-02",
-      "count": 0,
-      "language": null
+      "count": 4,
+      "language": "JavaScript"
     },
     {
       "date": "2026-06-03",
@@ -1858,24 +1858,73 @@
     {
       "name": "maplestory-platformer",
       "starDates": [
+        "2026-05-25",
+        "2026-05-23",
         "2026-04-12",
-        "2026-04-11",
-        "2026-05-31",
-        "2026-03-01",
-        "2026-05-02"
+        "2026-04-11"
       ]
     },
     {
       "name": "cybercv-resume",
       "starDates": [
-        "2026-06-01",
-        "2026-02-05",
-        "2026-05-23",
-        "2026-05-25"
+        "2026-04-20",
+        "2026-04-21",
+        "2026-04-22",
+        "2026-05-31",
+        "2026-06-01"
       ]
     },
     {
       "name": "commit_rendering",
+      "starDates": [
+        "2026-04-05",
+        "2026-04-26",
+        "2026-04-28",
+        "2026-06-02",
+        "2026-03-01"
+      ]
+    },
+    {
+      "name": "basic_check_tookit",
+      "starDates": [
+        "2026-04-30",
+        "2026-05-02",
+        "2026-05-05",
+        "2026-05-11",
+        "2026-02-05"
+      ]
+    },
+    {
+      "name": "test-1",
+      "starDates": [
+        "2026-04-16",
+        "2026-04-19",
+        "2026-04-24",
+        "2026-04-27",
+        "2026-05-19"
+      ]
+    },
+    {
+      "name": "ali-bobo",
+      "starDates": [
+        "2026-05-23",
+        "2026-05-25",
+        "2026-04-08",
+        "2026-04-09",
+        "2026-04-17"
+      ]
+    },
+    {
+      "name": "linux-learning-tool",
+      "starDates": [
+        "2026-04-23",
+        "2026-04-29",
+        "2026-05-06",
+        "2026-05-21"
+      ]
+    },
+    {
+      "name": "mdr_practice_report",
       "starDates": []
     }
   ]
