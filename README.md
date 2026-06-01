@@ -2,7 +2,17 @@
 
 Turn your GitHub contributions into a drifting pink-orange nebula. Every day is a star — brighter stars are busier days, colours mark languages, and your repositories become named constellations. Updates itself daily via GitHub Actions with no server and no secrets in the browser.
 
+<picture>
+  <source srcset="public/preview.webp" type="image/webp">
+  <img src="public/preview.png" alt="Animated nebula of GitHub contributions">
+</picture>
+
 ![license](https://img.shields.io/badge/license-MIT-green)
+
+> The README preview is an **animated WebP** (`public/preview.webp`) so the
+> twinkle and drift show even where Canvas can't run, with `public/preview.png`
+> as a still fallback. Both are regenerated daily by CI — see
+> `scripts/screenshot.mjs`.
 
 ## Quick start (local, sample data)
 

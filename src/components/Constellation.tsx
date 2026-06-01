@@ -8,18 +8,24 @@ import {
 
 interface Props {
   data: ConstellationData;
+  /**
+   * Preview mode for the animated README capture (scripts/screenshot.mjs):
+   * stronger drift so the wobble reads in a short clip, and no mouse-gravity
+   * because there is no pointer when rendering headless.
+   */
+  preview?: boolean;
 }
 
-export function Constellation({ data }: Props) {
+export function Constellation({ data, preview = false }: Props) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const rendererRef = useRef<ConstellationRenderer | null>(null);
   const [hover, setHover] = useState<HoverInfo | null>(null);
-  const [opts, setOpts] = useState<RendererOptions>({
-    drift: 1,
+  const [opts, setOpts] = useState<RendererOptions>(() => ({
+    drift: preview ? 1.7 : 1,
     showProjects: true,
-    gravity: true,
+    gravity: !preview,
     meteors: true,
-  });
+  }));
 
   useEffect(() => {
     const canvas = canvasRef.current;
