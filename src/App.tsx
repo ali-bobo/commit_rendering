@@ -5,6 +5,13 @@ import { Constellation } from "./components/Constellation";
 
 const BASE = import.meta.env.BASE_URL;
 
+// `?capture` is used by scripts/screenshot.mjs when recording the animated
+// preview. It exaggerates the drift and turns off mouse-gravity (there is no
+// pointer in headless capture) so the still-image README preview shows motion.
+const PREVIEW_MODE =
+  typeof window !== "undefined" &&
+  new URLSearchParams(window.location.search).has("capture");
+
 export default function App() {
   const [index, setIndex] = useState<YearIndex | null>(null);
   const [year, setYear] = useState<number | null>(null);
@@ -74,7 +81,7 @@ export default function App() {
 
       {!error && !data && <div className="app-loading">載入星空中…</div>}
 
-      {data && <Constellation data={data} />}
+      {data && <Constellation data={data} preview={PREVIEW_MODE} />}
 
       <footer className="app-footer">
         {data && (
