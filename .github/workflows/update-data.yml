@@ -1,7 +1,8 @@
 name: Update contribution data
 
-# Auto-updates public/data/contributions.json from the GitHub API, then commits
-# it back. GitHub Pages redeploys automatically from the deploy workflow.
+# Auto-updates public/data/contributions.json from the GitHub API, rebuilds the
+# app, captures a fresh preview.png of the rendered nebula, then commits both
+# back. GitHub Pages redeploys automatically from the deploy workflow.
 
 on:
   schedule:
@@ -28,6 +29,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
 
       - name: Fetch contribution data
         env:
@@ -43,14 +48,23 @@ jobs:
           PROJECT_REPOS: ${{ vars.PROJECT_REPOS }}
         run: node scripts/fetch-contributions.mjs
 
-      - name: Commit updated data
+      - name: Build the app
+        run: npm run build
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Capture preview screenshot
+        run: node scripts/screenshot.mjs
+
+      - name: Commit updated data and preview
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          if git diff --quiet -- public/data/; then
+          git add public/data/ public/preview.png
+          if git diff --staged --quiet; then
             echo "No changes to commit."
           else
-            git add public/data/
-            git commit -m "chore: update contribution data [skip ci]"
+            git commit -m "chore: update contribution data + preview [skip ci]"
             git push
           fi

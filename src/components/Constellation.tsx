@@ -67,6 +67,7 @@ export function Constellation({ data }: Props) {
             <b>{hover.count}</b> commits · {hover.monthLabel}
             {Number(hover.date.slice(8, 10))}日
             {hover.language ? " · " + hover.language : ""}
+            {hover.projectName ? " · ✦ " + hover.projectName : ""}
           </div>
         )}
       </div>

@@ -69,14 +69,14 @@ function buildStars(data: ConstellationData): Star[] {
     const monthDays = byMonth.get(m)!;
     monthDays.forEach((day, i) => {
       const a = rand() * Math.PI * 2;
-      const rr = Math.pow(rand(), 0.7) * 10;
+      const rr = Math.pow(rand(), 0.7) * 18;
       stars.push({
         day,
         bx: cx + Math.cos(a) * rr,
         by: cy + Math.sin(a) * rr,
         x: 0,
         y: 0,
-        r: 1.1 + day.count * 0.4,
+        r: 1.5 + Math.log1p(day.count) * 1.5,
         twk: rand(),
         tws: 0.6 + rand() * 1.3,
         col: (day.language && colorByLang.get(day.language)) || FALLBACK_COLOR,
@@ -96,6 +96,7 @@ export interface HoverInfo {
   date: string;
   language: string | null;
   monthLabel: string;
+  projectName?: string;
 }
 
 export class ConstellationRenderer {
@@ -106,6 +107,7 @@ export class ConstellationRenderer {
   private starByDate: Map<string, Star>;
   private bg: { x: number; y: number; r: number; tw: number }[] = [];
   private meteors: Meteor[] = [];
+  private dateToProject: Map<string, string> = new Map();
   private opts: RendererOptions;
   private W = 0;
   private H = 0;
@@ -133,8 +135,15 @@ export class ConstellationRenderer {
     this.stars = buildStars(data);
     this.starByDate = new Map(this.stars.map((s) => [s.day.date, s]));
 
+    // Build date → project name lookup for hover display.
+    for (const proj of data.projects) {
+      for (const date of proj.starDates) {
+        this.dateToProject.set(date, proj.name);
+      }
+    }
+
     const rand = seededRand(987);
-    for (let i = 0; i < 170; i++) {
+    for (let i = 0; i < 220; i++) {
       this.bg.push({
         x: rand() * 100,
         y: rand() * 100,
@@ -211,18 +220,23 @@ export class ConstellationRenderer {
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
-    // Nebula glow blobs.
+    // Nebula glow blobs — warm (red/orange/pink) + cool (blue/violet) tones.
     const blobRand = seededRand(42);
-    for (let k = 0; k < 5; k++) {
-      const nx = (0.2 + 0.6 * blobRand()) * W;
-      const ny = (0.2 + 0.6 * blobRand()) * H;
-      const rg = ctx.createRadialGradient(nx, ny, 0, nx, ny, W * 0.3);
-      const cc = [
-        "rgba(255,140,120,0.10)",
-        "rgba(255,170,200,0.08)",
-        "rgba(255,200,150,0.09)",
-      ][k % 3];
-      rg.addColorStop(0, cc);
+    const BLOB_COLORS = [
+      "rgba(255,140,120,0.10)",
+      "rgba(255,170,200,0.08)",
+      "rgba(255,200,150,0.09)",
+      "rgba(120,100,255,0.06)",
+      "rgba(80,180,255,0.05)",
+      "rgba(160,80,255,0.06)",
+      "rgba(255,120,160,0.08)",
+      "rgba(60,160,220,0.05)",
+    ];
+    for (let k = 0; k < 8; k++) {
+      const nx = (0.1 + 0.8 * blobRand()) * W;
+      const ny = (0.1 + 0.8 * blobRand()) * H;
+      const rg = ctx.createRadialGradient(nx, ny, 0, nx, ny, W * 0.28);
+      rg.addColorStop(0, BLOB_COLORS[k]);
       rg.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = rg;
       ctx.fillRect(0, 0, W, H);
@@ -273,18 +287,43 @@ export class ConstellationRenderer {
       if (!byMonth.has(s.monthLabel)) byMonth.set(s.monthLabel, []);
       byMonth.get(s.monthLabel)!.push(s);
     }
-    for (const arr of byMonth.values()) {
+    for (const [label, arr] of byMonth.entries()) {
       const sorted = [...arr].sort((a, b) => b.day.count - a.day.count).slice(0, 6);
       for (let i = 0; i < sorted.length - 1; i++) {
         ctx.strokeStyle = "rgba(255,190,170,0.14)";
+        ctx.lineWidth = 0.5;
+        ctx.setLineDash([]);
         ctx.beginPath();
         ctx.moveTo(sorted[i].x, sorted[i].y);
         ctx.lineTo(sorted[i + 1].x, sorted[i + 1].y);
         ctx.stroke();
       }
+      // Dashed halo ring around each month cluster.
+      if (arr.length >= 2) {
+        const cx = arr.reduce((s, st) => s + st.x, 0) / arr.length;
+        const cy = arr.reduce((s, st) => s + st.y, 0) / arr.length;
+        const maxR = arr.reduce(
+          (mx, st) => Math.max(mx, Math.hypot(st.x - cx, st.y - cy)),
+          0
+        );
+        if (maxR > 8) {
+          ctx.strokeStyle = "rgba(255,200,180,0.08)";
+          ctx.lineWidth = 1;
+          ctx.setLineDash([3, 8]);
+          ctx.beginPath();
+          ctx.arc(cx, cy, maxR + 12, 0, 6.283);
+          ctx.stroke();
+          ctx.setLineDash([]);
+          // Faint month label above the halo.
+          ctx.fillStyle = "rgba(255,200,180,0.28)";
+          ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
+          ctx.textAlign = "center";
+          ctx.fillText(label, cx, cy - maxR - 16);
+        }
+      }
     }
 
-    // Named project constellations.
+    // Named project constellations — lines only; labels appear on hover.
     if (this.opts.showProjects) {
       for (const proj of this.data.projects) {
         const pts = proj.starDates
@@ -293,15 +332,10 @@ export class ConstellationRenderer {
         if (pts.length < 2) continue;
         ctx.lineWidth = 1;
         ctx.strokeStyle = "rgba(255,215,190,0.5)";
+        ctx.setLineDash([]);
         ctx.beginPath();
         pts.forEach((s, i) => (i ? ctx.lineTo(s.x, s.y) : ctx.moveTo(s.x, s.y)));
         ctx.stroke();
-        const cxm = pts.reduce((p, s) => p + s.x, 0) / pts.length;
-        const cym = pts.reduce((p, s) => p + s.y, 0) / pts.length;
-        ctx.fillStyle = "rgba(255,225,205,0.78)";
-        ctx.font = 'italic 12px Georgia, serif';
-        ctx.textAlign = "center";
-        ctx.fillText("✦ " + proj.name, cxm, cym - 14);
       }
     }
 
@@ -368,14 +402,34 @@ export class ConstellationRenderer {
     }
     this.meteors = this.meteors.filter((m) => m.life > 0 && m.y < H + 20);
 
-    // Hover ring + report.
+    // Hover ring + cross spikes + report.
     if (hit) {
       ctx.strokeStyle = "#fff";
       ctx.lineWidth = 1;
       ctx.globalAlpha = 0.9;
+      ctx.setLineDash([]);
       ctx.beginPath();
       ctx.arc(hit.x, hit.y, hit.r + 5, 0, 6.283);
       ctx.stroke();
+      // Four-point spike cross.
+      const spikeLen = Math.max(12, hit.r * 4);
+      ctx.lineWidth = 0.7;
+      ctx.globalAlpha = 0.6;
+      ctx.strokeStyle = "#ffe8df";
+      for (let k = 0; k < 4; k++) {
+        const angle = (k * Math.PI) / 2;
+        const innerR = hit.r + 4;
+        ctx.beginPath();
+        ctx.moveTo(
+          hit.x + Math.cos(angle) * innerR,
+          hit.y + Math.sin(angle) * innerR
+        );
+        ctx.lineTo(
+          hit.x + Math.cos(angle) * (innerR + spikeLen),
+          hit.y + Math.sin(angle) * (innerR + spikeLen)
+        );
+        ctx.stroke();
+      }
       ctx.globalAlpha = 1;
       this.onHover?.({
         x: hit.x,
@@ -384,6 +438,7 @@ export class ConstellationRenderer {
         date: hit.day.date,
         language: hit.day.language,
         monthLabel: hit.monthLabel,
+        projectName: this.dateToProject.get(hit.day.date),
       });
     } else {
       this.onHover?.(null);

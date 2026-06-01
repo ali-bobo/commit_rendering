@@ -26,11 +26,13 @@ function mulberry32(seed) {
 }
 
 const LANGUAGES = [
-  { name: "TypeScript", color: "#ff9e7a" },
+  { name: "HTML", color: "#ffb0d0" },
   { name: "Python", color: "#ffcaa0" },
-  { name: "Rust", color: "#ff7a9e" },
-  { name: "Go", color: "#ffb0d0" },
-  { name: "GLSL", color: "#ffd9b0" },
+  { name: "VBScript", color: "#ffd9b0" },
+  { name: "PowerShell", color: "#ff9e7a" },
+  { name: "C++", color: "#ff8d6b" },
+  { name: "JavaScript", color: "#ffd9b0" },
+  { name: "Shell", color: "#ffcaa0" },
 ];
 
 function isoDate(d) {
@@ -54,10 +56,10 @@ function buildDaysForYear(rand, year) {
     d <= end;
     d.setDate(d.getDate() + 1)
   ) {
-    // Bias toward fewer commits, occasional bright bursts.
-    const base = Math.pow(rand(), 2.4);
-    const burst = rand() > 0.92 ? rand() * 0.6 : 0;
-    const count = Math.floor((base + burst) * 15);
+    // Bias toward sparse data (realistic for a personal portfolio account).
+    const base = Math.pow(rand(), 3.2);
+    const burst = rand() > 0.94 ? rand() * 0.5 : 0;
+    const count = Math.floor((base + burst) * 8);
     total += count;
 
     // Pick a language; monthly "main" language gives some clustering.
@@ -90,7 +92,12 @@ async function main() {
   // Generate 3 years of mock data so the year-selector is visible.
   const mockYears = [currentYear, currentYear - 1, currentYear - 2];
 
-  const projectNames = ["Aurora", "Helios", "Nimbus"];
+  // Use the real repo names so the mock looks like actual data.
+  const projectNames = [
+    "inf-red", "thm-soc2", "blog", "UCOM-NIST",
+    "linux-learning-tool", "cybercv-resume", "vuln-lab", "maplestory-platformer",
+  ];
+  const MOCK_USER = process.env.GITHUB_USER || "ali-bobo";
   const generatedAt = new Date().toISOString();
 
   await mkdir(DATA_DIR, { recursive: true });
@@ -102,7 +109,7 @@ async function main() {
 
     const data = {
       schemaVersion: 1,
-      user: "<YOUR_GITHUB_USERNAME>",
+      user: MOCK_USER,
       generatedAt,
       year,
       totalContributions: total,
