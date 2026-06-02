@@ -21,6 +21,10 @@ permissions:
   contents: read
   pages: write
   id-token: write
+  # Required by actions/deploy-pages@v5: it reads the uploaded Pages artifact
+  # through the Actions REST API, which needs read access to Actions. This is
+  # the smallest scope that still lets v5 work — keep it read-only.
+  actions: read
 
 # Allow only one concurrent deployment; let an in-progress run finish.
 concurrency:
@@ -34,10 +38,10 @@ jobs:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 20
           cache: npm
@@ -58,10 +62,10 @@ jobs:
         run: npm run build
 
       - name: Configure Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v6
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
@@ -74,4 +78,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
