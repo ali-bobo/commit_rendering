@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-01T23:16:35.535Z",
+  "generatedAt": "2026-06-02T05:55:10.827Z",
   "year": 2026,
   "totalContributions": 192,
   "isMock": false,
@@ -1838,12 +1838,12 @@
       "color": "#ffd9b0"
     },
     {
-      "name": "CSS",
-      "color": "#ffd9b0"
-    },
-    {
       "name": "TypeScript",
       "color": "#ff9e7a"
+    },
+    {
+      "name": "CSS",
+      "color": "#ffd9b0"
     },
     {
       "name": "Shell",
@@ -1865,7 +1865,7 @@
       ]
     },
     {
-      "name": "cybercv-resume",
+      "name": "commit_rendering",
       "starDates": [
         "2026-04-20",
         "2026-04-21",
@@ -1875,7 +1875,7 @@
       ]
     },
     {
-      "name": "commit_rendering",
+      "name": "cybercv-resume",
       "starDates": [
         "2026-04-05",
         "2026-04-26",
@@ -1885,7 +1885,7 @@
       ]
     },
     {
-      "name": "basic_check_tookit",
+      "name": "ali-bobo",
       "starDates": [
         "2026-04-30",
         "2026-05-02",
@@ -1895,7 +1895,7 @@
       ]
     },
     {
-      "name": "test-1",
+      "name": "basic_check_tookit",
       "starDates": [
         "2026-04-16",
         "2026-04-19",
@@ -1905,7 +1905,7 @@
       ]
     },
     {
-      "name": "ali-bobo",
+      "name": "test-1",
       "starDates": [
         "2026-05-23",
         "2026-05-25",

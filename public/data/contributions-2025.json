@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-01T23:16:35.535Z",
+  "generatedAt": "2026-06-02T05:55:10.827Z",
   "year": 2025,
   "totalContributions": 8,
   "isMock": false,
@@ -1838,12 +1838,12 @@
       "color": "#ffd9b0"
     },
     {
-      "name": "CSS",
-      "color": "#ffd9b0"
-    },
-    {
       "name": "TypeScript",
       "color": "#ff9e7a"
+    },
+    {
+      "name": "CSS",
+      "color": "#ffd9b0"
     },
     {
       "name": "Shell",
@@ -1863,11 +1863,15 @@
       ]
     },
     {
+      "name": "commit_rendering",
+      "starDates": []
+    },
+    {
       "name": "cybercv-resume",
       "starDates": []
     },
     {
-      "name": "commit_rendering",
+      "name": "ali-bobo",
       "starDates": []
     },
     {
@@ -1876,10 +1880,6 @@
     },
     {
       "name": "test-1",
-      "starDates": []
-    },
-    {
-      "name": "ali-bobo",
       "starDates": []
     },
     {
