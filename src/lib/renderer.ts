@@ -109,6 +109,42 @@ function hashDate(s: string): number {
   return h >>> 0;
 }
 
+// Accent ramp (coral→indigo) used to tint each star's glow. The star body keeps
+// its language colour, so the glow sprinkles the rest of the palette into the
+// scene without losing the language→colour meaning — handy when one language
+// dominates and every body would otherwise be the same hue.
+const ACCENT_ANCHORS = ["#ff9e7a", "#ff6f9c", "#d75fc4", "#9b6cff", "#6c7bff"];
+
+function hexToRgb(hex: string): [number, number, number] {
+  const h = hex.replace("#", "");
+  return [
+    parseInt(h.slice(0, 2), 16),
+    parseInt(h.slice(2, 4), 16),
+    parseInt(h.slice(4, 6), 16),
+  ];
+}
+
+function rgbToHex(r: number, g: number, b: number): string {
+  const c = (n: number) =>
+    Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
+  return `#${c(r)}${c(g)}${c(b)}`;
+}
+
+/** Linear RGB blend of two hex colours; t=0 → a, t=1 → b. */
+function mixHex(a: string, b: string, t: number): string {
+  const [ar, ag, ab] = hexToRgb(a);
+  const [br, bg, bb] = hexToRgb(b);
+  return rgbToHex(ar + (br - ar) * t, ag + (bg - ag) * t, ab + (bb - ab) * t);
+}
+
+/** Sample the accent ramp at u in [0,1]. */
+function accentColor(u: number): string {
+  const c = Math.max(0, Math.min(1, u));
+  const seg = c * (ACCENT_ANCHORS.length - 1);
+  const i = Math.min(ACCENT_ANCHORS.length - 2, Math.floor(seg));
+  return mixHex(ACCENT_ANCHORS[i], ACCENT_ANCHORS[i + 1], seg - i);
+}
+
 /**
  * Builds star layout from the data. Each day is placed along the year arc by its
  * date (oldest→newest = t 0→1), with a small seeded perpendicular jitter so the
@@ -194,6 +230,10 @@ export class ConstellationRenderer {
   private stars: Star[];
   private monthAnchors: { label: string; t: number }[];
   private starByDate: Map<string, Star>;
+  // Arc-progress span of the *active* days, so the glow accent ramp stretches
+  // across whatever window the user actually committed in (not the whole year).
+  private litTMin = 0;
+  private litTMax = 1;
   private bg: { x: number; y: number; r: number; tw: number }[] = [];
   private meteors: Meteor[] = [];
   private dateToProject: Map<string, string> = new Map();
@@ -224,6 +264,12 @@ export class ConstellationRenderer {
     this.stars = buildStars(data);
     this.monthAnchors = buildMonthAnchors(data);
     this.starByDate = new Map(this.stars.map((s) => [s.day.date, s]));
+
+    const litTs = this.stars.filter((s) => s.day.count > 0).map((s) => s.t);
+    if (litTs.length) {
+      this.litTMin = Math.min(...litTs);
+      this.litTMax = Math.max(...litTs);
+    }
 
     // Build date → project name lookup for hover display.
     for (const proj of data.projects) {
@@ -417,9 +463,23 @@ export class ConstellationRenderer {
       const tw = 0.7 + 0.3 * Math.sin(this.tt * s.tws * 2 + s.twk * 6.28);
       const R = s.r * tw;
       const bright = 0.5 + Math.min(0.45, Math.log1p(s.day.count) * 0.16);
+      // Glow tinted toward the accent ramp by the star's place in the active
+      // window; the body keeps its language colour (paler on quiet days, so
+      // commit volume reads as depth too).
+      const span = this.litTMax - this.litTMin;
+      const accentT = span > 1e-6 ? (s.t - this.litTMin) / span : 0.5;
+      const accent = accentColor(accentT);
+      const glowCol = mixHex(s.col, accent, 0.6);
+      // Body stays language-led but picks up a touch of the accent, then pales
+      // on quiet days so commit volume reads as depth.
+      const bodyCol = mixHex(
+        mixHex(s.col, accent, 0.22),
+        "#ffffff",
+        Math.max(0, 0.3 - Math.log1p(s.day.count) * 0.11)
+      );
       const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5);
-      g.addColorStop(0, s.col);
-      g.addColorStop(0.3, s.col + "99");
+      g.addColorStop(0, glowCol);
+      g.addColorStop(0.3, glowCol + "99");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
       ctx.globalAlpha = bright * tw;
@@ -431,7 +491,7 @@ export class ConstellationRenderer {
       ctx.beginPath();
       ctx.arc(s.x, s.y, Math.max(0.8, R * 0.55), 0, 6.283);
       ctx.fill();
-      ctx.fillStyle = s.col;
+      ctx.fillStyle = bodyCol;
       ctx.globalAlpha = 0.85;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R, 0, 6.283);
