@@ -40,3 +40,6 @@ pnpm-debug.log*
 # NOTE: public/data/contributions.json is intentionally NOT ignored.
 # It is the generated data the deployed site reads, committed by the
 # update-data workflow.
+
+# Superpowers brainstorming scratch (not part of the project)
+.superpowers/

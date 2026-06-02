@@ -1,12 +1,19 @@
 import type { ConstellationData, DayStar } from "./types";
 
-const FALLBACK_COLOR = "#ffc6a0";
+// Fallback star colour for unknown languages. Sits in the harmonious
+// coral→indigo ramp so it never clashes with the legend palette.
+const FALLBACK_COLOR = "#d79ad0";
 
 export interface RendererOptions {
   drift: number; // 0..1 multiplier
   showProjects: boolean;
   gravity: boolean;
   meteors: boolean;
+}
+
+interface Pt {
+  x: number;
+  y: number;
 }
 
 interface Star {
@@ -16,6 +23,7 @@ interface Star {
   x: number; // live pixel position
   y: number;
   r: number; // base radius from magnitude
+  t: number; // 0..1 progress along the year arc (drives drift phase + ordering)
   twk: number; // twinkle phase
   tws: number; // twinkle speed
   col: string;
@@ -35,6 +43,54 @@ const MONTHS = [
   "7月", "8月", "9月", "10月", "11月", "12月",
 ];
 
+// The "galaxy arm": a single cubic Bézier in percent space that the whole year
+// is threaded along. Jan sits at the lower-left end (t=0), Dec at the upper-right
+// (t=1). Days flow along it by date, so the layout reads chronologically AND
+// curves like a real spiral arm. Control points chosen to stay low-left then
+// sweep up-right.
+const ARC: [Pt, Pt, Pt, Pt] = [
+  { x: 8, y: 80 },
+  { x: 30, y: 80 },
+  { x: 60, y: 36 },
+  { x: 92, y: 26 },
+];
+
+function arcPoint(t: number): Pt {
+  const u = 1 - t;
+  const a = u * u * u;
+  const b = 3 * u * u * t;
+  const c = 3 * u * t * t;
+  const d = t * t * t;
+  return {
+    x: a * ARC[0].x + b * ARC[1].x + c * ARC[2].x + d * ARC[3].x,
+    y: a * ARC[0].y + b * ARC[1].y + c * ARC[2].y + d * ARC[3].y,
+  };
+}
+
+function arcTangent(t: number): Pt {
+  const u = 1 - t;
+  const a = 3 * u * u;
+  const b = 6 * u * t;
+  const c = 3 * t * t;
+  return {
+    x: a * (ARC[1].x - ARC[0].x) + b * (ARC[2].x - ARC[1].x) + c * (ARC[3].x - ARC[2].x),
+    y: a * (ARC[1].y - ARC[0].y) + b * (ARC[2].y - ARC[1].y) + c * (ARC[3].y - ARC[2].y),
+  };
+}
+
+/** Unit normal pointing toward the "outer" (upper) side of the arc. */
+function arcNormal(t: number): Pt {
+  const tan = arcTangent(t);
+  const len = Math.hypot(tan.x, tan.y) || 1;
+  let nx = -tan.y / len;
+  let ny = tan.x / len;
+  if (ny > 0) {
+    nx = -nx;
+    ny = -ny;
+  }
+  return { x: nx, y: ny };
+}
+
 function seededRand(seed: number): () => number {
   let s = seed;
   return () => {
@@ -43,50 +99,70 @@ function seededRand(seed: number): () => number {
   };
 }
 
+/** Stable hash of an ISO date so a day's jitter never changes between renders. */
+function hashDate(s: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
 /**
- * Builds star layout from the data. Stars are grouped into clusters by month,
- * each cluster placed at a stable pseudo-random spot. Colour comes from the
- * day's language.
+ * Builds star layout from the data. Each day is placed along the year arc by its
+ * date (oldest→newest = t 0→1), with a small seeded perpendicular jitter so the
+ * arm reads as a star cloud rather than a hard line. Returned in date order,
+ * which the time-thread relies on.
  */
 function buildStars(data: ConstellationData): Star[] {
   const colorByLang = new Map<string, string>();
   for (const l of data.languages) colorByLang.set(l.name, l.color);
 
-  // Group days by month index.
-  const byMonth = new Map<number, DayStar[]>();
-  for (const day of data.days) {
-    const m = new Date(day.date + "T00:00:00").getMonth();
-    if (!byMonth.has(m)) byMonth.set(m, []);
-    byMonth.get(m)!.push(day);
-  }
-
+  const N = data.days.length;
   const stars: Star[] = [];
-  const months = [...byMonth.keys()].sort((a, b) => a - b);
-  months.forEach((m, ci) => {
-    const rand = seededRand((m + 1) * 131 + 7);
-    const cx = 8 + 84 * rand();
-    const cy = 12 + 74 * rand();
-    const monthDays = byMonth.get(m)!;
-    monthDays.forEach((day, i) => {
-      const a = rand() * Math.PI * 2;
-      const rr = Math.pow(rand(), 0.7) * 18;
-      stars.push({
-        day,
-        bx: cx + Math.cos(a) * rr,
-        by: cy + Math.sin(a) * rr,
-        x: 0,
-        y: 0,
-        r: 1.5 + Math.log1p(day.count) * 1.5,
-        twk: rand(),
-        tws: 0.6 + rand() * 1.3,
-        col: (day.language && colorByLang.get(day.language)) || FALLBACK_COLOR,
-        monthLabel: MONTHS[m] ?? `${m + 1}月`,
-      });
-      void ci;
-      void i;
+  data.days.forEach((day, i) => {
+    const t = N > 1 ? i / (N - 1) : 0.5;
+    const base = arcPoint(t);
+    const norm = arcNormal(t);
+    const tan = arcTangent(t);
+    const tlen = Math.hypot(tan.x, tan.y) || 1;
+    const rand = seededRand(hashDate(day.date));
+    // Perpendicular spread forms the band; a little along-arc jitter loosens it.
+    const jN = (rand() * 2 - 1) * 9.5;
+    const jT = (rand() * 2 - 1) * 2.5;
+    stars.push({
+      day,
+      bx: base.x + norm.x * jN + (tan.x / tlen) * jT,
+      by: base.y + norm.y * jN + (tan.y / tlen) * jT,
+      x: 0,
+      y: 0,
+      r: 1.6 + Math.min(7.5, Math.log1p(day.count) * 2.0),
+      t,
+      twk: rand(),
+      tws: 0.6 + rand() * 1.3,
+      col: (day.language && colorByLang.get(day.language)) || FALLBACK_COLOR,
+      monthLabel: MONTHS[new Date(day.date + "T00:00:00").getMonth()] ?? "",
     });
   });
   return stars;
+}
+
+/** Where each present month sits along the arc (mean t of its days). */
+function buildMonthAnchors(data: ConstellationData): { label: string; t: number }[] {
+  const N = data.days.length;
+  const acc = new Map<number, { sum: number; n: number }>();
+  data.days.forEach((day, i) => {
+    const t = N > 1 ? i / (N - 1) : 0.5;
+    const m = new Date(day.date + "T00:00:00").getMonth();
+    const e = acc.get(m) ?? { sum: 0, n: 0 };
+    e.sum += t;
+    e.n += 1;
+    acc.set(m, e);
+  });
+  return [...acc.entries()]
+    .sort((a, b) => a[0] - b[0])
+    .map(([m, e]) => ({ label: MONTHS[m] ?? `${m + 1}月`, t: e.sum / e.n }));
 }
 
 export interface HoverInfo {
@@ -99,11 +175,24 @@ export interface HoverInfo {
   projectName?: string;
 }
 
+// Warm→cool nebula blobs, fixed so colour grades with position: coral/rose at
+// the arc's lower-left start, violet/indigo toward its upper-right end.
+const NEBULA_BLOBS: { x: number; y: number; c: string }[] = [
+  { x: 14, y: 82, c: "rgba(255,140,120,0.11)" },
+  { x: 30, y: 70, c: "rgba(255,120,165,0.10)" },
+  { x: 46, y: 78, c: "rgba(230,110,185,0.08)" },
+  { x: 55, y: 46, c: "rgba(200,110,222,0.08)" },
+  { x: 70, y: 36, c: "rgba(160,110,255,0.08)" },
+  { x: 85, y: 26, c: "rgba(120,130,255,0.07)" },
+  { x: 62, y: 60, c: "rgba(255,150,150,0.06)" },
+];
+
 export class ConstellationRenderer {
   private cv: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private data: ConstellationData;
   private stars: Star[];
+  private monthAnchors: { label: string; t: number }[];
   private starByDate: Map<string, Star>;
   private bg: { x: number; y: number; r: number; tw: number }[] = [];
   private meteors: Meteor[] = [];
@@ -133,6 +222,7 @@ export class ConstellationRenderer {
     this.data = data;
     this.opts = opts;
     this.stars = buildStars(data);
+    this.monthAnchors = buildMonthAnchors(data);
     this.starByDate = new Map(this.stars.map((s) => [s.day.date, s]));
 
     // Build date → project name lookup for hover display.
@@ -212,31 +302,20 @@ export class ConstellationRenderer {
     const driftMul = this.reduceMotion ? 0 : this.opts.drift;
     this.tt += dt * driftMul;
 
-    // Background gradient (warm nebula night).
+    // Background gradient (deep plum → indigo, matching the nebula ramp).
     const grad = ctx.createLinearGradient(0, 0, W, H);
-    grad.addColorStop(0, "#1c0f1e");
-    grad.addColorStop(0.5, "#2a1220");
-    grad.addColorStop(1, "#34161c");
+    grad.addColorStop(0, "#1d1026");
+    grad.addColorStop(0.5, "#1a1030");
+    grad.addColorStop(1, "#141228");
     ctx.fillStyle = grad;
     ctx.fillRect(0, 0, W, H);
 
-    // Nebula glow blobs — warm (red/orange/pink) + cool (blue/violet) tones.
-    const blobRand = seededRand(42);
-    const BLOB_COLORS = [
-      "rgba(255,140,120,0.10)",
-      "rgba(255,170,200,0.08)",
-      "rgba(255,200,150,0.09)",
-      "rgba(120,100,255,0.06)",
-      "rgba(80,180,255,0.05)",
-      "rgba(160,80,255,0.06)",
-      "rgba(255,120,160,0.08)",
-      "rgba(60,160,220,0.05)",
-    ];
-    for (let k = 0; k < 8; k++) {
-      const nx = (0.1 + 0.8 * blobRand()) * W;
-      const ny = (0.1 + 0.8 * blobRand()) * H;
-      const rg = ctx.createRadialGradient(nx, ny, 0, nx, ny, W * 0.28);
-      rg.addColorStop(0, BLOB_COLORS[k]);
+    // Nebula glow blobs — warm at the arc start, cool toward its end.
+    for (const b of NEBULA_BLOBS) {
+      const nx = (b.x / 100) * W;
+      const ny = (b.y / 100) * H;
+      const rg = ctx.createRadialGradient(nx, ny, 0, nx, ny, W * 0.3);
+      rg.addColorStop(0, b.c);
       rg.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = rg;
       ctx.fillRect(0, 0, W, H);
@@ -246,24 +325,20 @@ export class ConstellationRenderer {
     for (const s of this.bg) {
       const x = (s.x / 100) * W;
       const y = (s.y / 100) * H;
-      ctx.globalAlpha = 0.2 + 0.5 * (0.5 + 0.5 * Math.sin(this.tt * 1.5 + s.tw * 6.28));
-      ctx.fillStyle = "#ffdfd0";
+      ctx.globalAlpha =
+        0.2 + 0.5 * (0.5 + 0.5 * Math.sin(this.tt * 1.5 + s.tw * 6.28));
+      ctx.fillStyle = "#f3e9ff";
       ctx.beginPath();
       ctx.arc(x, y, s.r, 0, 6.283);
       ctx.fill();
     }
     ctx.globalAlpha = 1;
 
-    // Drift + optional gravity, smoothed.
-    const groupRand = seededRand(7);
-    const groups = new Map<string, number>();
+    // Drift (gentle per-star sway keyed to arc position) + optional gravity.
     for (const s of this.stars) {
-      if (!groups.has(s.monthLabel)) groups.set(s.monthLabel, groupRand());
-    }
-    for (const s of this.stars) {
-      const k = groups.get(s.monthLabel)!;
-      const ox = Math.sin(this.tt * 0.13 + k * 6.28) * 3.0;
-      const oy = Math.cos(this.tt * 0.11 + k * 9.42) * 2.4;
+      const ph = s.t * 6.28 * 2;
+      const ox = Math.sin(this.tt * 0.5 + ph) * 1.5;
+      const oy = Math.cos(this.tt * 0.42 + ph) * 1.2;
       let tx = ((s.bx + ox) / 100) * W;
       let ty = ((s.by + oy) / 100) * H;
       if (this.opts.gravity && this.mx > 0) {
@@ -280,50 +355,44 @@ export class ConstellationRenderer {
       s.y += (ty - s.y) * 0.12;
     }
 
-    // Faint month-cluster lines.
-    ctx.lineWidth = 0.5;
-    const byMonth = new Map<string, Star[]>();
+    // Time thread: a faint line linking consecutive active days along the arc.
+    // Because stars are ordered by date and sit on the arc, this never tangles;
+    // a distance guard breaks the thread across long inactive gaps so separate
+    // bursts of activity read as their own little constellations.
+    const thr = 0.15 * W;
+    const thr2 = thr * thr;
+    ctx.lineWidth = 0.6;
+    ctx.strokeStyle = "rgba(255,200,215,0.11)";
+    ctx.setLineDash([]);
+    let prev: Star | null = null;
     for (const s of this.stars) {
-      if (!byMonth.has(s.monthLabel)) byMonth.set(s.monthLabel, []);
-      byMonth.get(s.monthLabel)!.push(s);
-    }
-    for (const [label, arr] of byMonth.entries()) {
-      const sorted = [...arr].sort((a, b) => b.day.count - a.day.count).slice(0, 6);
-      for (let i = 0; i < sorted.length - 1; i++) {
-        ctx.strokeStyle = "rgba(255,190,170,0.14)";
-        ctx.lineWidth = 0.5;
-        ctx.setLineDash([]);
-        ctx.beginPath();
-        ctx.moveTo(sorted[i].x, sorted[i].y);
-        ctx.lineTo(sorted[i + 1].x, sorted[i + 1].y);
-        ctx.stroke();
-      }
-      // Dashed halo ring around each month cluster.
-      if (arr.length >= 2) {
-        const cx = arr.reduce((s, st) => s + st.x, 0) / arr.length;
-        const cy = arr.reduce((s, st) => s + st.y, 0) / arr.length;
-        const maxR = arr.reduce(
-          (mx, st) => Math.max(mx, Math.hypot(st.x - cx, st.y - cy)),
-          0
-        );
-        if (maxR > 8) {
-          ctx.strokeStyle = "rgba(255,200,180,0.08)";
-          ctx.lineWidth = 1;
-          ctx.setLineDash([3, 8]);
+      if (s.day.count === 0) continue;
+      if (prev) {
+        const dx = s.x - prev.x;
+        const dy = s.y - prev.y;
+        if (dx * dx + dy * dy < thr2) {
           ctx.beginPath();
-          ctx.arc(cx, cy, maxR + 12, 0, 6.283);
+          ctx.moveTo(prev.x, prev.y);
+          ctx.lineTo(s.x, s.y);
           ctx.stroke();
-          ctx.setLineDash([]);
-          // Faint month label above the halo.
-          ctx.fillStyle = "rgba(255,200,180,0.28)";
-          ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
-          ctx.textAlign = "center";
-          ctx.fillText(label, cx, cy - maxR - 16);
         }
       }
+      prev = s;
     }
 
-    // Named project constellations — lines only; labels appear on hover.
+    // Month labels, anchored on the outer side of the arc.
+    ctx.fillStyle = "rgba(230,210,255,0.26)";
+    ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
+    ctx.textAlign = "center";
+    for (const a of this.monthAnchors) {
+      const p = arcPoint(a.t);
+      const n = arcNormal(a.t);
+      const lx = ((p.x + n.x * 7) / 100) * W;
+      const ly = ((p.y + n.y * 7) / 100) * H;
+      ctx.fillText(a.label, lx, ly);
+    }
+
+    // Named project constellations — date-ordered, so they follow the arc.
     if (this.opts.showProjects) {
       for (const proj of this.data.projects) {
         const pts = proj.starDates
@@ -331,7 +400,7 @@ export class ConstellationRenderer {
           .filter((s): s is Star => !!s);
         if (pts.length < 2) continue;
         ctx.lineWidth = 1;
-        ctx.strokeStyle = "rgba(255,215,190,0.5)";
+        ctx.strokeStyle = "rgba(230,200,255,0.45)";
         ctx.setLineDash([]);
         ctx.beginPath();
         pts.forEach((s, i) => (i ? ctx.lineTo(s.x, s.y) : ctx.moveTo(s.x, s.y)));
@@ -339,26 +408,28 @@ export class ConstellationRenderer {
       }
     }
 
-    // Stars + hover detection.
+    // Stars + hover detection. Glow size and brightness scale with the day's
+    // commit count, so busy days read as bright, dominant stars.
     let hit: Star | null = null;
     let hd = 14;
     for (const s of this.stars) {
       if (s.day.count === 0) continue;
       const tw = 0.7 + 0.3 * Math.sin(this.tt * s.tws * 2 + s.twk * 6.28);
       const R = s.r * tw;
+      const bright = 0.5 + Math.min(0.45, Math.log1p(s.day.count) * 0.16);
       const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5);
       g.addColorStop(0, s.col);
       g.addColorStop(0.3, s.col + "99");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
-      ctx.globalAlpha = 0.6 * tw;
+      ctx.globalAlpha = bright * tw;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R * 4.5, 0, 6.283);
       ctx.fill();
       ctx.globalAlpha = 1;
       ctx.fillStyle = "#fff";
       ctx.beginPath();
-      ctx.arc(s.x, s.y, Math.max(0.8, R * 0.5), 0, 6.283);
+      ctx.arc(s.x, s.y, Math.max(0.8, R * 0.55), 0, 6.283);
       ctx.fill();
       ctx.fillStyle = s.col;
       ctx.globalAlpha = 0.85;

@@ -1,10 +1,10 @@
 :root {
-  --bg: #160b18;
+  --bg: #160f24;
   --ink: #ffe8df;
   --ink-dim: #e7b8ac;
   --accent: #ff9e7a;
-  --panel: rgba(40, 18, 30, 0.6);
-  --border: rgba(255, 200, 180, 0.18);
+  --panel: rgba(34, 22, 44, 0.6);
+  --border: rgba(220, 200, 255, 0.18);
   font-synthesis: none;
   -webkit-font-smoothing: antialiased;
 }
@@ -42,7 +42,7 @@ body {
   font-weight: 500;
   letter-spacing: 0.04em;
   margin: 0;
-  background: linear-gradient(90deg, #ffd9b0, #ff9e7a, #ff7a9e);
+  background: linear-gradient(90deg, #ff9e7a, #ff6f9c, #9b6cff);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

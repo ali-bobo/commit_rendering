@@ -39,23 +39,25 @@ if (!USER) {
   process.exit(1);
 }
 
-// Pink-orange palette. Languages not listed fall back to a neutral warm tone.
+// Harmonious coral→indigo ramp: cohesive neighbours on the colour wheel rather
+// than a flat warm wash. Keep in sync with scripts/generate-mock.mjs and the
+// renderer's FALLBACK_COLOR. Languages not listed fall back to a soft orchid.
 const LANG_COLORS = {
-  TypeScript: "#ff9e7a",
-  JavaScript: "#ffd9b0",
-  Python: "#ffcaa0",
-  Rust: "#ff7a9e",
-  Go: "#ffb0d0",
-  GLSL: "#ffd9b0",
-  C: "#ff9e7a",
-  "C++": "#ff8d6b",
-  Java: "#ffb98a",
-  Ruby: "#ff7a9e",
-  Shell: "#ffcaa0",
-  HTML: "#ffb0d0",
-  CSS: "#ffd9b0",
+  TypeScript: "#6c7bff",
+  JavaScript: "#ff9e7a",
+  Python: "#c563dc",
+  Rust: "#ff6f9c",
+  Go: "#7b86ff",
+  GLSL: "#db61c8",
+  C: "#ff8d7e",
+  "C++": "#ff7d8e",
+  Java: "#fa66ad",
+  Ruby: "#ad66ec",
+  Shell: "#ec64bb",
+  HTML: "#9b6cff",
+  CSS: "#8a78ff",
 };
-const FALLBACK_COLOR = "#ffc6a0";
+const FALLBACK_COLOR = "#d79ad0";
 
 async function gql(query, variables) {
   const res = await fetch("https://api.github.com/graphql", {

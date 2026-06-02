@@ -25,14 +25,17 @@ function mulberry32(seed) {
   };
 }
 
+// Harmonious coral→indigo ramp: each language gets a distinct hue that still
+// sits next to its neighbours on the colour wheel, so the legend stays cohesive.
+// Keep in sync with scripts/fetch-contributions.mjs and renderer FALLBACK_COLOR.
 const LANGUAGES = [
-  { name: "HTML", color: "#ffb0d0" },
-  { name: "Python", color: "#ffcaa0" },
-  { name: "VBScript", color: "#ffd9b0" },
-  { name: "PowerShell", color: "#ff9e7a" },
-  { name: "C++", color: "#ff8d6b" },
-  { name: "JavaScript", color: "#ffd9b0" },
-  { name: "Shell", color: "#ffcaa0" },
+  { name: "HTML", color: "#ff6f9c" },
+  { name: "Python", color: "#ff9e7a" },
+  { name: "VBScript", color: "#d75fc4" },
+  { name: "PowerShell", color: "#ec64bb" },
+  { name: "C++", color: "#ff7d8e" },
+  { name: "JavaScript", color: "#9b6cff" },
+  { name: "Shell", color: "#b466e8" },
 ];
 
 function isoDate(d) {
