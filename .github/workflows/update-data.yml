@@ -38,10 +38,16 @@ jobs:
       - name: Fetch contribution data
         env:
           # GITHUB_TOKEN is provided automatically by Actions and is scoped to
-          # this repo only. It can read your PUBLIC contribution calendar.
-          # To include PRIVATE contributions, create a fine-grained PAT with
-          # read-only "Contributions" + "Metadata" access, store it as the
-          # repo secret CONSTELLATION_TOKEN, and it will be used instead.
+          # this repo ONLY. It reads your PUBLIC contribution calendar, but it
+          # CANNOT read the commit history of your other repos — which the
+          # per-day language attribution relies on. With only this token, every
+          # active day falls back to your single primary language, so the stars
+          # do not vary by colour.
+          # For real per-day language colours (and to include PRIVATE
+          # contributions), create a fine-grained PAT with read-only
+          # "Contents" + "Metadata" access (add "Contributions" for private),
+          # store it as the repo secret CONSTELLATION_TOKEN, and it is used
+          # instead.
           GITHUB_TOKEN: ${{ secrets.CONSTELLATION_TOKEN || secrets.GITHUB_TOKEN }}
           GITHUB_USER: ${{ github.repository_owner }}
           # Optional: comma-separated repo names to turn into named
