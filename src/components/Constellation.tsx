@@ -22,7 +22,6 @@ export function Constellation({ data, preview = false }: Props) {
   const [hover, setHover] = useState<HoverInfo | null>(null);
   const [opts, setOpts] = useState<RendererOptions>(() => ({
     drift: preview ? 1.7 : 1,
-    showProjects: true,
     gravity: !preview,
     meteors: true,
   }));
@@ -102,16 +101,6 @@ export function Constellation({ data, preview = false }: Props) {
               setOpts((o) => ({ ...o, drift: Number(e.target.value) / 50 }))
             }
           />
-        </label>
-        <label className="cc-ctrl">
-          <input
-            type="checkbox"
-            checked={opts.showProjects}
-            onChange={(e) =>
-              setOpts((o) => ({ ...o, showProjects: e.target.checked }))
-            }
-          />
-          專案星座
         </label>
         <label className="cc-ctrl">
           <input
