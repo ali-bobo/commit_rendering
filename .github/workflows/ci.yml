@@ -1,0 +1,47 @@
+name: CI
+
+# Validates every pull request into main: type-check, unit tests, and a full
+# production build. This is the only PR-triggered gate. The deploy and
+# update-data workflows run on push/schedule, so without this, dependency bumps
+# (e.g. dependabot PRs) would merge completely untested.
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+# Read-only: CI never writes to the repo or needs any token scope.
+permissions:
+  contents: read
+
+# A newer push to the same PR cancels the previous, still-running CI.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          # Node 24 = Active LTS (2026). >=22.18 runs the .ts unit test via
+          # native type stripping, so `npm test` needs no extra flags.
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type-check
+        run: npm run typecheck
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
