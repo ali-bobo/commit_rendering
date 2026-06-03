@@ -6,7 +6,6 @@ const FALLBACK_COLOR = "#d79ad0";
 
 export interface RendererOptions {
   drift: number; // 0..1 multiplier
-  showProjects: boolean;
   gravity: boolean;
   meteors: boolean;
 }
@@ -226,10 +225,8 @@ const NEBULA_BLOBS: { x: number; y: number; c: string }[] = [
 export class ConstellationRenderer {
   private cv: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
-  private data: ConstellationData;
   private stars: Star[];
   private monthAnchors: { label: string; t: number }[];
-  private starByDate: Map<string, Star>;
   // Arc-progress span of the *active* days, so the glow accent ramp stretches
   // across whatever window the user actually committed in (not the whole year).
   private litTMin = 0;
@@ -259,11 +256,9 @@ export class ConstellationRenderer {
     const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("2D canvas context unavailable");
     this.ctx = ctx;
-    this.data = data;
     this.opts = opts;
     this.stars = buildStars(data);
     this.monthAnchors = buildMonthAnchors(data);
-    this.starByDate = new Map(this.stars.map((s) => [s.day.date, s]));
 
     const litTs = this.stars.filter((s) => s.day.count > 0).map((s) => s.t);
     if (litTs.length) {
@@ -401,31 +396,6 @@ export class ConstellationRenderer {
       s.y += (ty - s.y) * 0.12;
     }
 
-    // Time thread: a faint line linking consecutive active days along the arc.
-    // Because stars are ordered by date and sit on the arc, this never tangles;
-    // a distance guard breaks the thread across long inactive gaps so separate
-    // bursts of activity read as their own little constellations.
-    const thr = 0.15 * W;
-    const thr2 = thr * thr;
-    ctx.lineWidth = 0.6;
-    ctx.strokeStyle = "rgba(255,200,215,0.11)";
-    ctx.setLineDash([]);
-    let prev: Star | null = null;
-    for (const s of this.stars) {
-      if (s.day.count === 0) continue;
-      if (prev) {
-        const dx = s.x - prev.x;
-        const dy = s.y - prev.y;
-        if (dx * dx + dy * dy < thr2) {
-          ctx.beginPath();
-          ctx.moveTo(prev.x, prev.y);
-          ctx.lineTo(s.x, s.y);
-          ctx.stroke();
-        }
-      }
-      prev = s;
-    }
-
     // Month labels, anchored on the outer side of the arc.
     ctx.fillStyle = "rgba(230,210,255,0.26)";
     ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
@@ -438,22 +408,6 @@ export class ConstellationRenderer {
       ctx.fillText(a.label, lx, ly);
     }
 
-    // Named project constellations — date-ordered, so they follow the arc.
-    if (this.opts.showProjects) {
-      for (const proj of this.data.projects) {
-        const pts = proj.starDates
-          .map((d) => this.starByDate.get(d))
-          .filter((s): s is Star => !!s);
-        if (pts.length < 2) continue;
-        ctx.lineWidth = 1;
-        ctx.strokeStyle = "rgba(230,200,255,0.45)";
-        ctx.setLineDash([]);
-        ctx.beginPath();
-        pts.forEach((s, i) => (i ? ctx.lineTo(s.x, s.y) : ctx.moveTo(s.x, s.y)));
-        ctx.stroke();
-      }
-    }
-
     // Stars + hover detection. Glow size and brightness scale with the day's
     // commit count, so busy days read as bright, dominant stars.
     let hit: Star | null = null;
@@ -463,13 +417,14 @@ export class ConstellationRenderer {
       const tw = 0.7 + 0.3 * Math.sin(this.tt * s.tws * 2 + s.twk * 6.28);
       const R = s.r * tw;
       const bright = 0.5 + Math.min(0.45, Math.log1p(s.day.count) * 0.16);
-      // Glow tinted toward the accent ramp by the star's place in the active
-      // window; the body keeps its language colour (paler on quiet days, so
-      // commit volume reads as depth too).
+      // Glow stays language-led with only a light position-accent tint, so the
+      // language→colour meaning reads clearly instead of being washed toward the
+      // ramp. (Was 0.6 — that drowned the language hue, which is the colour the
+      // legend promises.)
       const span = this.litTMax - this.litTMin;
       const accentT = span > 1e-6 ? (s.t - this.litTMin) / span : 0.5;
       const accent = accentColor(accentT);
-      const glowCol = mixHex(s.col, accent, 0.6);
+      const glowCol = mixHex(s.col, accent, 0.3);
       // Body stays language-led but picks up a touch of the accent, then pales
       // on quiet days so commit volume reads as depth.
       const bodyCol = mixHex(
