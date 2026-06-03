@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-03T14:47:13.525Z",
+  "generatedAt": "2026-06-03T15:33:29.475Z",
   "year": 2026,
-  "totalContributions": 195,
+  "totalContributions": 196,
   "isMock": false,
   "days": [
     {
@@ -184,7 +184,7 @@
     {
       "date": "2026-02-05",
       "count": 2,
-      "language": "JavaScript"
+      "language": "HTML"
     },
     {
       "date": "2026-02-06",
@@ -304,7 +304,7 @@
     {
       "date": "2026-03-01",
       "count": 3,
-      "language": "JavaScript"
+      "language": "Shell"
     },
     {
       "date": "2026-03-02",
@@ -614,7 +614,7 @@
     {
       "date": "2026-05-02",
       "count": 3,
-      "language": "JavaScript"
+      "language": "CSS"
     },
     {
       "date": "2026-05-03",
@@ -759,22 +759,22 @@
     {
       "date": "2026-05-31",
       "count": 8,
-      "language": "JavaScript"
+      "language": "CSS"
     },
     {
       "date": "2026-06-01",
       "count": 7,
-      "language": "JavaScript"
+      "language": "TypeScript"
     },
     {
       "date": "2026-06-02",
       "count": 7,
-      "language": "JavaScript"
+      "language": "TypeScript"
     },
     {
       "date": "2026-06-03",
-      "count": 0,
-      "language": null
+      "count": 1,
+      "language": "TypeScript"
     },
     {
       "date": "2026-06-04",
@@ -1842,16 +1842,16 @@
       "color": "#6c7bff"
     },
     {
+      "name": "HTML",
+      "color": "#9b6cff"
+    },
+    {
       "name": "CSS",
       "color": "#8a78ff"
     },
     {
       "name": "Shell",
       "color": "#ec64bb"
-    },
-    {
-      "name": "HTML",
-      "color": "#9b6cff"
     }
   ],
   "projects": [
@@ -1920,7 +1920,8 @@
         "2026-04-23",
         "2026-04-29",
         "2026-05-06",
-        "2026-05-21"
+        "2026-05-21",
+        "2026-06-03"
       ]
     },
     {

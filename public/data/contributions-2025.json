@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-03T14:47:13.525Z",
+  "generatedAt": "2026-06-03T15:33:29.475Z",
   "year": 2025,
   "totalContributions": 8,
   "isMock": false,
@@ -1474,7 +1474,7 @@
     {
       "date": "2025-10-21",
       "count": 5,
-      "language": "JavaScript"
+      "language": "HTML"
     },
     {
       "date": "2025-10-22",
@@ -1599,7 +1599,7 @@
     {
       "date": "2025-11-15",
       "count": 3,
-      "language": "JavaScript"
+      "language": "HTML"
     },
     {
       "date": "2025-11-16",
@@ -1842,16 +1842,16 @@
       "color": "#6c7bff"
     },
     {
+      "name": "HTML",
+      "color": "#9b6cff"
+    },
+    {
       "name": "CSS",
       "color": "#8a78ff"
     },
     {
       "name": "Shell",
       "color": "#ec64bb"
-    },
-    {
-      "name": "HTML",
-      "color": "#9b6cff"
     }
   ],
   "projects": [
