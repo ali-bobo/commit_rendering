@@ -1,9 +1,9 @@
 name: Update contribution data
 
-# Auto-updates public/data/contributions.json from the GitHub API, rebuilds the
-# app, captures a fresh preview of the rendered nebula (still preview.png plus
-# an animated preview.webp), then commits them back. GitHub Pages redeploys
-# automatically from the deploy workflow.
+# Auto-updates public/data/ (index.json + per-year contributions-YYYY.json) from
+# the GitHub API, rebuilds the app, captures a fresh preview of the rendered
+# nebula (still preview.png plus an animated preview.webp), then commits them
+# back. GitHub Pages redeploys automatically from the deploy workflow.
 
 on:
   schedule:

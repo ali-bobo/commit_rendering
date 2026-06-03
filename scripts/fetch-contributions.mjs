@@ -15,6 +15,7 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LANG_COLORS, FALLBACK_COLOR } from "./lang-colors.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = resolve(__dirname, "../public/data");
@@ -39,25 +40,8 @@ if (!USER) {
   process.exit(1);
 }
 
-// Harmonious coral→indigo ramp: cohesive neighbours on the colour wheel rather
-// than a flat warm wash. Keep in sync with scripts/generate-mock.mjs and the
-// renderer's FALLBACK_COLOR. Languages not listed fall back to a soft orchid.
-const LANG_COLORS = {
-  TypeScript: "#6c7bff",
-  JavaScript: "#ff9e7a",
-  Python: "#c563dc",
-  Rust: "#ff6f9c",
-  Go: "#7b86ff",
-  GLSL: "#db61c8",
-  C: "#ff8d7e",
-  "C++": "#ff7d8e",
-  Java: "#fa66ad",
-  Ruby: "#ad66ec",
-  Shell: "#ec64bb",
-  HTML: "#9b6cff",
-  CSS: "#8a78ff",
-};
-const FALLBACK_COLOR = "#d79ad0";
+// Language → colour mapping lives in scripts/lang-colors.mjs (shared with the
+// mock generator) so the palette can never drift between sample and real data.
 
 async function gql(query, variables) {
   const res = await fetch("https://api.github.com/graphql", {

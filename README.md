@@ -1,6 +1,6 @@
 # Commit Constellation
 
-Turn your GitHub contributions into a drifting pink-orange nebula. Every day is a star — brighter stars are busier days, colours mark languages, and your repositories become named constellations. Updates itself daily via GitHub Actions with no server and no secrets in the browser.
+Turn your GitHub contributions into a drifting pink-orange nebula. Every day is a star — brighter stars are busier days, colours mark the day's language, and hovering any star shows its commits, date, and project. Multiple years are selectable. Updates itself daily via GitHub Actions with no server and no secrets in the browser.
 
 <picture>
   <source srcset="public/preview.webp" type="image/webp">
@@ -18,7 +18,7 @@ Turn your GitHub contributions into a drifting pink-orange nebula. Every day is 
 
 ```bash
 npm install
-npm run fetch:mock   # generate public/data/contributions.json (sample)
+npm run fetch:mock   # generate sample data in public/data/ (per-year files + index.json)
 npm run dev          # open the printed localhost URL
 ```
 
@@ -69,7 +69,7 @@ The token never leaves CI. The browser only fetches a static JSON file.
 ├─ scripts/
 │  ├─ generate-mock.mjs             # sample data generator
 │  └─ fetch-contributions.mjs       # real GitHub data fetcher
-├─ public/data/contributions.json   # generated; committed by CI
+├─ public/data/                     # index.json + contributions-YYYY.json (generated, committed by CI)
 ├─ .github/
 │  ├─ workflows/update-data.yml
 │  ├─ workflows/deploy.yml

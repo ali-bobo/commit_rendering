@@ -1,4 +1,5 @@
 import type { ConstellationData, DayStar } from "./types";
+import { normalizedRadius } from "./starfield";
 
 // Fallback star colour for unknown languages. Sits in the harmonious
 // coral→indigo ramp so it never clashes with the legend palette.
@@ -155,6 +156,10 @@ function buildStars(data: ConstellationData): Star[] {
   for (const l of data.languages) colorByLang.set(l.name, l.color);
 
   const N = data.days.length;
+  // Radius is normalized to the user's OWN busiest day, so a sparse portfolio
+  // account still gets a prominent "hero" star instead of a field of uniform
+  // specks (see starfield.normalizedRadius).
+  const maxCount = data.days.reduce((m, d) => Math.max(m, d.count), 0);
   const stars: Star[] = [];
   data.days.forEach((day, i) => {
     const t = N > 1 ? i / (N - 1) : 0.5;
@@ -172,7 +177,7 @@ function buildStars(data: ConstellationData): Star[] {
       by: base.y + norm.y * jN + (tan.y / tlen) * jT,
       x: 0,
       y: 0,
-      r: 1.6 + Math.min(7.5, Math.log1p(day.count) * 2.0),
+      r: normalizedRadius(day.count, maxCount),
       t,
       twk: rand(),
       tws: 0.6 + rand() * 1.3,
