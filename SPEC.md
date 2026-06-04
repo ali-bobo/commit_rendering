@@ -8,12 +8,14 @@ star map on an HTML Canvas:
 - **One day → one star.**
 - **Magnitude** (radius + glow + twinkle) ∝ that day's contribution count.
 - **Colour** encodes the day's dominant programming language (pink-orange ramp).
-- Stars are grouped into **monthly clusters**, faintly linked.
-- A few **named constellations** are drawn from the user's real repositories,
-  labelled (e.g. `✦ Aurora`).
-- Ambient touches: drifting clusters, twinkling, periodic **meteors**, and an
+- Days are threaded chronologically along a **galaxy arc** (Jan→Dec), with month
+  labels anchored along it.
+- Each active day is attributed to one of the user's real repositories; that
+  **project** is surfaced on hover (no drawn constellation lines — an earlier
+  line-drawing version was removed for being visually noisy).
+- Ambient touches: drifting stars, twinkling, periodic **meteors**, and an
   optional **mouse-gravity** effect.
-- Hovering a star shows a tooltip: `N commits · M月D日 · Language`.
+- Hovering a star shows a tooltip: `N commits · M月D日 · Language · ✦ Project`.
 
 Default state is calm (slow drift, gentle twinkle) to avoid eye strain;
 heavier motion only happens on interaction.
@@ -24,8 +26,9 @@ heavier motion only happens on interaction.
 GitHub GraphQL API
         │  (CI only, token in env)
         ▼
-scripts/fetch-contributions.mjs ──► public/data/contributions.json ◄── scripts/generate-mock.mjs
-                                              │  (the data contract)
+scripts/fetch-contributions.mjs ──► public/data/index.json          ◄── scripts/generate-mock.mjs
+                                     public/data/contributions-YYYY.json
+                                              │  (the data contract, one file per year)
                                               ▼
                                     src/lib/loadData.ts (fetch + validate)
                                               ▼
@@ -52,7 +55,9 @@ fields:
 | `user`, `totalContributions`, `generatedAt`, `isMock` | metadata |
 
 Both data producers MUST emit this exact shape. The frontend imports the type
-and validates at runtime in `loadData.ts`.
+and validates at runtime in `loadData.ts`. Data is split one file per year
+(`contributions-YYYY.json`); `index.json` (the `YearIndex` type) lists available
+years so the UI can offer a year selector.
 
 ## 4. Auto-update mechanism
 
@@ -76,9 +81,9 @@ approximation; see §8.
 ## 6. Constellations
 
 Chosen repos (via `PROJECT_REPOS`, else top repos by activity) each become a
-constellation whose stars are the brightest contribution days, partitioned so
-constellations don't share stars. `starDates` reference dates that also exist
-in `days`.
+named **project** whose stars are the brightest contribution days, partitioned
+so projects don't share stars. `starDates` reference dates that also exist in
+`days`, and the project name is shown when hovering one of those stars.
 
 ## 7. Accessibility & performance
 

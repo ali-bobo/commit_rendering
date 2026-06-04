@@ -37,9 +37,12 @@ pnpm-debug.log*
 # Temp frames captured by scripts/screenshot.mjs before WebP encoding.
 .preview-frames/
 
-# NOTE: public/data/contributions.json is intentionally NOT ignored.
-# It is the generated data the deployed site reads, committed by the
-# update-data workflow.
+# NOTE: public/data/*.json (index.json + contributions-YYYY.json) is
+# intentionally NOT ignored. It is the generated data the deployed site reads,
+# committed by the update-data workflow.
 
 # Superpowers brainstorming scratch (not part of the project)
 .superpowers/
+
+# Internal, self-only notes / standards — not part of the published project.
+.internal/

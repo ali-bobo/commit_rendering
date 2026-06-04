@@ -1,9 +1,9 @@
 name: Update contribution data
 
-# Auto-updates public/data/contributions.json from the GitHub API, rebuilds the
-# app, captures a fresh preview of the rendered nebula (still preview.png plus
-# an animated preview.webp), then commits them back. GitHub Pages redeploys
-# automatically from the deploy workflow.
+# Auto-updates public/data/ (index.json + per-year contributions-YYYY.json) from
+# the GitHub API, rebuilds the app, captures a fresh preview of the rendered
+# nebula (still preview.png plus an animated preview.webp), then commits them
+# back. GitHub Pages redeploys automatically from the deploy workflow.
 
 on:
   schedule:
@@ -29,7 +29,9 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 20
+          # Node 24 = Active LTS (2026); Node 20 is being removed from runners.
+          # Playwright (locked 1.60) supports Node 24.
+          node-version: 24
           cache: npm
 
       - name: Install dependencies

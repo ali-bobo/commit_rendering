@@ -10,6 +10,7 @@
 import { writeFile, mkdir } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
+import { LANG_COLORS, FALLBACK_COLOR } from "./lang-colors.mjs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = resolve(__dirname, "../public/data");
@@ -25,18 +26,12 @@ function mulberry32(seed) {
   };
 }
 
-// Harmonious coral→indigo ramp: each language gets a distinct hue that still
-// sits next to its neighbours on the colour wheel, so the legend stays cohesive.
-// Keep in sync with scripts/fetch-contributions.mjs and renderer FALLBACK_COLOR.
-const LANGUAGES = [
-  { name: "HTML", color: "#ff6f9c" },
-  { name: "Python", color: "#ff9e7a" },
-  { name: "VBScript", color: "#d75fc4" },
-  { name: "PowerShell", color: "#ec64bb" },
-  { name: "C++", color: "#ff7d8e" },
-  { name: "JavaScript", color: "#9b6cff" },
-  { name: "Shell", color: "#b466e8" },
-];
+// Sample legend drawn from the shared palette (scripts/lang-colors.mjs), so the
+// mock's colours are identical to what real data would produce for the same
+// languages — no hand-maintained second copy to drift.
+const LANGUAGES = ["TypeScript", "Python", "Rust", "Shell", "C++", "JavaScript", "Go"].map(
+  (name) => ({ name, color: LANG_COLORS[name] ?? FALLBACK_COLOR })
+);
 
 function isoDate(d) {
   return d.toISOString().slice(0, 10);

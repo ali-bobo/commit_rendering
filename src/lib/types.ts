@@ -3,7 +3,8 @@
  *
  * This is the ONLY shape the frontend depends on. Both the mock generator
  * (scripts/generate-mock.mjs) and the real fetcher (scripts/fetch-contributions.mjs)
- * emit a file matching `ConstellationData` to public/data/contributions.json.
+ * emit one file per year matching `ConstellationData` to
+ * public/data/contributions-YYYY.json, plus an index.json (`YearIndex`).
  *
  * Because both producers honour this contract, swapping mock data for real
  * GitHub data requires ZERO frontend changes.
