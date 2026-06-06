@@ -30,10 +30,10 @@ const PORT = 4173;
 
 // Capture / encode settings. Tuned to keep the committed WebP small (~a few MB)
 // while still showing the twinkle and drift.
-const FRAME_COUNT = 145; // ~8s window (145 * 55ms ≈ 7.975s) to fit one BH cycle
+const FRAME_COUNT = 254; // ~14s window (254 * 55ms ≈ 13.97s): ~7.7s calm + 6.3s BH action
 const FRAME_INTERVAL = 55; // ms between grabs (wall-clock)
 const LOOP_SECONDS = (FRAME_COUNT * FRAME_INTERVAL) / 1000; // single source of truth
-const PLAYBACK_FPS = 20; // WebP playback rate
+const PLAYBACK_FPS = 18; // ≈ 1000/55ms capture rate; avoids the 10% speedup from 20fps
 const WEBP_WIDTH = 760; // downscale width in px; -1 keeps aspect ratio
 const WEBP_QUALITY = 82; // libwebp quality 0..100 (higher = smoother gradients)
 

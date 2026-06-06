@@ -20,9 +20,17 @@ export class StarfieldLayer implements Layer {
   draw(f: FrameContext): void {
     const { ctx, tt, stars, blackHole } = f;
     const span = this.litTMax - this.litTMin;
+    const hoverProj = f.hover.project;
 
     for (const s of stars) {
       if (s.day.count === 0 || s.swallowed) continue;
+      // Focus dimming: non-members fade to 0.3 opacity as the hovered project's
+      // hl value approaches 1, giving a smooth spotlight effect.
+      const dimMul =
+        hoverProj === null || hoverProj.members.includes(s)
+          ? 1
+          : 1 - 0.7 * hoverProj.hl;
+
       const twFreq = f.loopPeriod ? snapFreq(s.tws * 2, f.loopPeriod) : s.tws * 2;
       const tw = 0.7 + 0.3 * Math.sin(tt * twFreq + s.twk * 6.28);
       const R = s.r * tw;
@@ -38,6 +46,8 @@ export class StarfieldLayer implements Layer {
 
       // Motion-blur tail while the black hole pulls.
       if (blackHole.tail > 0.005) {
+        ctx.save();
+        ctx.globalAlpha = dimMul;
         const len = (12 + R * 6) * blackHole.tail;
         const dx = s.x - f.center.x;
         const dy = s.y - f.center.y;
@@ -54,7 +64,7 @@ export class StarfieldLayer implements Layer {
         ctx.moveTo(tx, ty);
         ctx.lineTo(s.x, s.y);
         ctx.stroke();
-        ctx.lineCap = "butt"; // restore default so later layers (meteors/hover) keep butt caps
+        ctx.restore(); // restores lineCap + globalAlpha
       }
 
       const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5);
@@ -62,17 +72,17 @@ export class StarfieldLayer implements Layer {
       g.addColorStop(0.3, glowCol + "99");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
-      ctx.globalAlpha = bright * tw;
+      ctx.globalAlpha = bright * tw * dimMul;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R * 4.5, 0, 6.283);
       ctx.fill();
-      ctx.globalAlpha = 1;
       ctx.fillStyle = "#fff";
+      ctx.globalAlpha = dimMul;
       ctx.beginPath();
       ctx.arc(s.x, s.y, Math.max(0.8, R * 0.55), 0, 6.283);
       ctx.fill();
       ctx.fillStyle = bodyCol;
-      ctx.globalAlpha = 0.85;
+      ctx.globalAlpha = 0.85 * dimMul;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R, 0, 6.283);
       ctx.fill();
