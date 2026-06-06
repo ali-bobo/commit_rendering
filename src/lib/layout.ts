@@ -2,6 +2,7 @@ import type { ConstellationData, DayStar } from "./types";
 import { normalizedRadius } from "./starfield";
 import { arcPoint, arcNormal, arcTangent } from "./arc";
 import { FALLBACK_COLOR } from "./color";
+import { snapFreq } from "./loopfreq";
 
 export interface Star {
   day: DayStar;
@@ -109,9 +110,17 @@ export function buildMonthAnchors(data: ConstellationData): MonthAnchor[] {
  * is keyed to arc position so the whole arm breathes coherently. Pure: the
  * caller converts to px and applies smoothing.
  */
-export function driftPos(star: Star, tt: number): { x: number; y: number } {
+export function driftPos(
+  star: Star,
+  tt: number,
+  loopPeriod?: number | null
+): { x: number; y: number } {
+  // In loop/capture mode, snap the two sway frequencies to harmonics of the loop
+  // period so the drift returns to the same phase at the seam (seamless loop).
+  const fx = loopPeriod ? snapFreq(0.5, loopPeriod) : 0.5;
+  const fy = loopPeriod ? snapFreq(0.42, loopPeriod) : 0.42;
   const ph = star.t * 6.28 * 2;
-  const ox = Math.sin(tt * 0.5 + ph) * 1.5;
-  const oy = Math.cos(tt * 0.42 + ph) * 1.2;
+  const ox = Math.sin(tt * fx + ph) * 1.5;
+  const oy = Math.cos(tt * fy + ph) * 1.2;
   return { x: star.bx + ox, y: star.by + oy };
 }

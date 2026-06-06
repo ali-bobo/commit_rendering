@@ -25,6 +25,9 @@ export interface FrameContext {
   hover: HoverState;
   /** Black-hole centre in px (canvas centre-ish), shared by transform + overlay. */
   center: { x: number; y: number };
+  /** Loop period (s) when capturing a seamless loop, else null. Layers snap
+   *  their animation frequencies to this so the whole scene loops. */
+  loopPeriod: number | null;
 }
 
 export interface Layer {

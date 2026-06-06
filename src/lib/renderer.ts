@@ -87,10 +87,21 @@ export class ConstellationRenderer {
     this.reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
-    this.bh = new BlackHoleController(
-      undefined,
-      opts.blackHole && !this.reduceMotion
-    );
+    const loop = opts.loopPeriod;
+    this.bh =
+      loop != null
+        ? new BlackHoleController(
+            {
+              calm: Math.max(0.5, loop - 6.3),
+              collapse: 3.2,
+              sing: 0.7,
+              rebirth: 2.4,
+              ehMax: 30,
+              swirl: 10,
+            },
+            !this.reduceMotion
+          )
+        : new BlackHoleController(undefined, opts.blackHole && !this.reduceMotion);
 
     this.layers = [
       new BackgroundLayer(
@@ -153,7 +164,7 @@ export class ConstellationRenderer {
     // frame()); driftPos uses full sway amplitude exactly like the pre-refactor
     // code, so this preserves visual parity. Do NOT re-scale by driftMul here.
     for (const s of this.stars) {
-      const d = driftPos(s, this.tt);
+      const d = driftPos(s, this.tt, this.opts.loopPeriod);
       let tx = (d.x / 100) * W;
       let ty = (d.y / 100) * H;
       if (this.opts.gravity && this.mx > 0 && !bhState.active) {
@@ -215,7 +226,9 @@ export class ConstellationRenderer {
     const dt = Math.min(0.05, (now - this.last) / 1000);
     this.last = now;
     const driftMul = this.reduceMotion ? 0 : this.opts.drift;
-    this.tt += dt * driftMul;
+    // Loop/capture mode advances tt in real time (ignores drift) so the cycle
+    // length is predictable and equals the recording window.
+    this.tt += this.opts.loopPeriod != null ? dt : dt * driftMul;
 
     const center = { x: this.W * 0.5, y: this.H * 0.46 };
     const bhState = this.bh.state(this.tt);
@@ -238,6 +251,7 @@ export class ConstellationRenderer {
       blackHole: bhState,
       hover,
       center,
+      loopPeriod: this.opts.loopPeriod,
     };
 
     this.layers[0].draw(f); // background
