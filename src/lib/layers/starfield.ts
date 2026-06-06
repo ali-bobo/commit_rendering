@@ -29,6 +29,11 @@ export class StarfieldLayer implements Layer {
         ? 1
         : Math.min(1, f.tt / 1.5);
 
+    // Global nebula breathing: slow glow-size pulse shared by all stars so the
+    // whole cloud feels alive. Per-star twinkle handles the individual sparkle.
+    const breathFreq = f.loopPeriod ? snapFreq(0.45, f.loopPeriod) : 0.45;
+    const breathe = f.reduceMotion ? 1 : 1 + 0.14 * Math.sin(tt * breathFreq);
+
     for (const s of stars) {
       if (s.day.count === 0 || s.swallowed) continue;
       // Focus dimming: non-members fade to 0.3 opacity as the hovered project's
@@ -75,14 +80,14 @@ export class StarfieldLayer implements Layer {
         ctx.restore(); // restores lineCap + globalAlpha
       }
 
-      const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5);
+      const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5 * breathe);
       g.addColorStop(0, glowCol);
       g.addColorStop(0.3, glowCol + "99");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
       ctx.globalAlpha = bright * tw * alpha;
       ctx.beginPath();
-      ctx.arc(s.x, s.y, R * 4.5, 0, 6.283);
+      ctx.arc(s.x, s.y, R * 4.5 * breathe, 0, 6.283);
       ctx.fill();
       ctx.fillStyle = "#fff";
       ctx.globalAlpha = alpha;

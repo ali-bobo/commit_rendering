@@ -117,6 +117,21 @@ export class ConstellationRenderer {
     ];
 
     this.resize();
+
+    // Year-switch / initial fly-in: start all stars at the canvas centre so the
+    // lerp in updatePositions fans them out to arc positions over ~1s. Disabled
+    // for reduced-motion: stars snap straight to their computed positions instead.
+    const cx = this.W * 0.5;
+    const cy = this.H * 0.46;
+    for (const s of this.stars) {
+      if (this.reduceMotion) {
+        s.x = (s.bx / 100) * this.W;
+        s.y = (s.by / 100) * this.H;
+      } else {
+        s.x = cx;
+        s.y = cy;
+      }
+    }
   }
 
   setOptions(opts: Partial<RendererOptions>) {
