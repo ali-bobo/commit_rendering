@@ -11,6 +11,8 @@ import { rgba } from "../color";
 export class ProjectNebulaLayer implements Layer {
   draw(f: FrameContext): void {
     const { ctx, tt, projects, blackHole, center } = f;
+    // ×1.3 fades the nebula out before suck reaches 1, so it's gone before the
+    // singularity flash rather than lingering under it.
     const regAlpha = Math.max(0, 1 - blackHole.suck * 1.3);
     if (regAlpha <= 0.01) return;
 
@@ -22,6 +24,9 @@ export class ProjectNebulaLayer implements Layer {
       const cy = c.y + (center.y - c.y) * blackHole.suck;
 
       const breathe = 1 + 0.08 * Math.sin(tt * 0.6 + pi * 1.7);
+      // radius() uses the UN-pulled centroid (c), not the pulled (cx,cy), so the
+      // halo size stays tied to the star cluster's true spread even as it drifts
+      // toward the singularity. Do not change to radius(p, cx, cy).
       const rad = (radius(p, c.x, c.y) + 40) * (1 - blackHole.suck * 0.6) * breathe;
 
       const hues = [p.hueA, p.hueB];
