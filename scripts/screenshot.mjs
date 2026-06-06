@@ -35,7 +35,7 @@ const FRAME_INTERVAL = 55; // ms between grabs (wall-clock)
 const LOOP_SECONDS = (FRAME_COUNT * FRAME_INTERVAL) / 1000; // single source of truth
 const PLAYBACK_FPS = 20; // WebP playback rate
 const WEBP_WIDTH = 760; // downscale width in px; -1 keeps aspect ratio
-const WEBP_QUALITY = 72; // libwebp quality 0..100
+const WEBP_QUALITY = 82; // libwebp quality 0..100 (higher = smoother gradients)
 
 /**
  * Build the ffmpeg argument list that encodes a zero-padded PNG frame sequence
@@ -113,8 +113,15 @@ async function captureFrames() {
 
   const browser = await chromium.launch();
   try {
-    const page = await browser.newPage();
-    await page.setViewportSize({ width: 1040, height: 680 });
+    // deviceScaleFactor: 2 makes the renderer draw the canvas at 2x internal
+    // resolution (its DPR cap), so the captured frames are supersampled and stay
+    // crisp after the lanczos downscale to WEBP_WIDTH — fixes the soft/aliased
+    // look of the 1x default.
+    const context = await browser.newContext({
+      viewport: { width: 1040, height: 680 },
+      deviceScaleFactor: 2,
+    });
+    const page = await context.newPage();
     // ?capture disables mouse-gravity; ?loop drives a seamless black-hole loop
     // whose period equals this recording window (see App.tsx / renderer).
     await page.goto(`http://localhost:${PORT}/?capture=1&loop=${LOOP_SECONDS}`, {
