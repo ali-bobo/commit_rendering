@@ -93,7 +93,10 @@ export class ConstellationRenderer {
     );
 
     this.layers = [
-      new BackgroundLayer(seededRand(987)),
+      new BackgroundLayer(
+        seededRand(987),
+        `${import.meta.env.BASE_URL}bg-galaxy.webp`
+      ),
       new ProjectNebulaLayer(),
       new StarfieldLayer(litTMin, litTMax),
       new ProjectHighlightLayer(),
