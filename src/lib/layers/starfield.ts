@@ -21,6 +21,13 @@ export class StarfieldLayer implements Layer {
     const { ctx, tt, stars, blackHole } = f;
     const span = this.litTMax - this.litTMin;
     const hoverProj = f.hover.project;
+    // Stars fade in over 1.5s on initial load and year switches (tt resets to 0
+    // on each new renderer). Disabled in loop/capture mode (WebP must start at
+    // full brightness) and reduced-motion (instant appearance is preferred).
+    const fadeIn =
+      f.opts.loopPeriod != null || f.reduceMotion
+        ? 1
+        : Math.min(1, f.tt / 1.5);
 
     for (const s of stars) {
       if (s.day.count === 0 || s.swallowed) continue;
@@ -30,6 +37,7 @@ export class StarfieldLayer implements Layer {
         hoverProj === null || hoverProj.members.includes(s)
           ? 1
           : 1 - 0.7 * hoverProj.hl;
+      const alpha = dimMul * fadeIn;
 
       const twFreq = f.loopPeriod ? snapFreq(s.tws * 2, f.loopPeriod) : s.tws * 2;
       const tw = 0.7 + 0.3 * Math.sin(tt * twFreq + s.twk * 6.28);
@@ -47,7 +55,7 @@ export class StarfieldLayer implements Layer {
       // Motion-blur tail while the black hole pulls.
       if (blackHole.tail > 0.005) {
         ctx.save();
-        ctx.globalAlpha = dimMul;
+        ctx.globalAlpha = alpha;
         const len = (12 + R * 6) * blackHole.tail;
         const dx = s.x - f.center.x;
         const dy = s.y - f.center.y;
@@ -72,17 +80,17 @@ export class StarfieldLayer implements Layer {
       g.addColorStop(0.3, glowCol + "99");
       g.addColorStop(1, "rgba(0,0,0,0)");
       ctx.fillStyle = g;
-      ctx.globalAlpha = bright * tw * dimMul;
+      ctx.globalAlpha = bright * tw * alpha;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R * 4.5, 0, 6.283);
       ctx.fill();
       ctx.fillStyle = "#fff";
-      ctx.globalAlpha = dimMul;
+      ctx.globalAlpha = alpha;
       ctx.beginPath();
       ctx.arc(s.x, s.y, Math.max(0.8, R * 0.55), 0, 6.283);
       ctx.fill();
       ctx.fillStyle = bodyCol;
-      ctx.globalAlpha = 0.85 * dimMul;
+      ctx.globalAlpha = 0.85 * alpha;
       ctx.beginPath();
       ctx.arc(s.x, s.y, R, 0, 6.283);
       ctx.fill();

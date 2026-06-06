@@ -264,8 +264,8 @@ export class ConstellationRenderer {
 
     // Month labels on the outer side of the arc (fade as the black hole pulls).
     ctx.globalAlpha = Math.max(0, 1 - bhState.suck * 1.3);
-    ctx.fillStyle = "rgba(230,210,255,0.26)";
-    ctx.font = "10px ui-sans-serif, system-ui, sans-serif";
+    ctx.fillStyle = "rgba(230,210,255,0.35)";
+    ctx.font = "9px ui-monospace, 'SF Mono', Consolas, monospace";
     ctx.textAlign = "center";
     for (const a of this.monthAnchors) {
       const p = arcPoint(a.t);
