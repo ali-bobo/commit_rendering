@@ -1,10 +1,7 @@
 import type { ConstellationData, DayStar } from "./types";
 import { normalizedRadius } from "./starfield";
 import { arcPoint, arcTangent, arcNormal } from "./arc";
-
-// Fallback star colour for unknown languages. Sits in the harmonious
-// coral→indigo ramp so it never clashes with the legend palette.
-const FALLBACK_COLOR = "#d79ad0";
+import { FALLBACK_COLOR, accentColor, mixHex } from "./color";
 
 export interface RendererOptions {
   drift: number; // 0..1 multiplier
@@ -55,42 +52,6 @@ function hashDate(s: string): number {
     h = Math.imul(h, 16777619);
   }
   return h >>> 0;
-}
-
-// Accent ramp (coral→indigo) used to tint each star's glow. The star body keeps
-// its language colour, so the glow sprinkles the rest of the palette into the
-// scene without losing the language→colour meaning — handy when one language
-// dominates and every body would otherwise be the same hue.
-const ACCENT_ANCHORS = ["#ff9e7a", "#ff6f9c", "#d75fc4", "#9b6cff", "#6c7bff"];
-
-function hexToRgb(hex: string): [number, number, number] {
-  const h = hex.replace("#", "");
-  return [
-    parseInt(h.slice(0, 2), 16),
-    parseInt(h.slice(2, 4), 16),
-    parseInt(h.slice(4, 6), 16),
-  ];
-}
-
-function rgbToHex(r: number, g: number, b: number): string {
-  const c = (n: number) =>
-    Math.max(0, Math.min(255, Math.round(n))).toString(16).padStart(2, "0");
-  return `#${c(r)}${c(g)}${c(b)}`;
-}
-
-/** Linear RGB blend of two hex colours; t=0 → a, t=1 → b. */
-function mixHex(a: string, b: string, t: number): string {
-  const [ar, ag, ab] = hexToRgb(a);
-  const [br, bg, bb] = hexToRgb(b);
-  return rgbToHex(ar + (br - ar) * t, ag + (bg - ag) * t, ab + (bb - ab) * t);
-}
-
-/** Sample the accent ramp at u in [0,1]. */
-function accentColor(u: number): string {
-  const c = Math.max(0, Math.min(1, u));
-  const seg = c * (ACCENT_ANCHORS.length - 1);
-  const i = Math.min(ACCENT_ANCHORS.length - 2, Math.floor(seg));
-  return mixHex(ACCENT_ANCHORS[i], ACCENT_ANCHORS[i + 1], seg - i);
 }
 
 /**
