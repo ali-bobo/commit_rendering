@@ -8,9 +8,23 @@ const BASE = import.meta.env.BASE_URL;
 // `?capture` is used by scripts/screenshot.mjs when recording the animated
 // preview. It exaggerates the drift and turns off mouse-gravity (there is no
 // pointer in headless capture) so the still-image README preview shows motion.
-const PREVIEW_MODE =
-  typeof window !== "undefined" &&
-  new URLSearchParams(window.location.search).has("capture");
+const PARAMS =
+  typeof window !== "undefined"
+    ? new URLSearchParams(window.location.search)
+    : new URLSearchParams();
+const PREVIEW_MODE = PARAMS.has("capture");
+
+// `?loop=<seconds>` (only honoured with ?capture) drives a seamless black-hole
+// loop in the README capture. Treat as untrusted input: parse, range-check
+// [7,30] (lower bound keeps calm = L-6.3 > 0), else ignore.
+function parseLoopPeriod(): number | null {
+  if (!PREVIEW_MODE) return null;
+  const raw = PARAMS.get("loop");
+  if (raw === null) return null;
+  const n = Number.parseFloat(raw);
+  return Number.isFinite(n) && n >= 7 && n <= 30 ? n : null;
+}
+const LOOP_PERIOD = parseLoopPeriod();
 
 export default function App() {
   const [index, setIndex] = useState<YearIndex | null>(null);
@@ -81,7 +95,13 @@ export default function App() {
 
       {!error && !data && <div className="app-loading">載入星空中…</div>}
 
-      {data && <Constellation data={data} preview={PREVIEW_MODE} />}
+      {data && (
+        <Constellation
+          data={data}
+          preview={PREVIEW_MODE}
+          loopPeriod={LOOP_PERIOD}
+        />
+      )}
 
       <footer className="app-footer">
         {data && (

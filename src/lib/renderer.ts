@@ -121,8 +121,14 @@ export class ConstellationRenderer {
 
   setOptions(opts: Partial<RendererOptions>) {
     this.opts = { ...this.opts, ...opts };
-    if (opts.blackHole !== undefined) {
-      this.bh.setEnabled(opts.blackHole && !this.reduceMotion);
+    // The black hole is on when EITHER the live toggle is set OR we're in loop/
+    // capture mode (loopPeriod != null). Capture passes blackHole:false, so this
+    // must not key off blackHole alone — otherwise it would disable the loop.
+    if (opts.blackHole !== undefined || opts.loopPeriod !== undefined) {
+      this.bh.setEnabled(
+        (this.opts.blackHole || this.opts.loopPeriod != null) &&
+          !this.reduceMotion
+      );
     }
   }
 

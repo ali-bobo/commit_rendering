@@ -30,8 +30,9 @@ const PORT = 4173;
 
 // Capture / encode settings. Tuned to keep the committed WebP small (~a few MB)
 // while still showing the twinkle and drift.
-const FRAME_COUNT = 64; // frames grabbed from the live animation
+const FRAME_COUNT = 145; // ~8s window (145 * 55ms ≈ 7.975s) to fit one BH cycle
 const FRAME_INTERVAL = 55; // ms between grabs (wall-clock)
+const LOOP_SECONDS = (FRAME_COUNT * FRAME_INTERVAL) / 1000; // single source of truth
 const PLAYBACK_FPS = 20; // WebP playback rate
 const WEBP_WIDTH = 760; // downscale width in px; -1 keeps aspect ratio
 const WEBP_QUALITY = 72; // libwebp quality 0..100
@@ -114,8 +115,9 @@ async function captureFrames() {
   try {
     const page = await browser.newPage();
     await page.setViewportSize({ width: 1040, height: 680 });
-    // ?capture boosts drift and disables mouse-gravity (see App.tsx).
-    await page.goto(`http://localhost:${PORT}/?capture=1`, {
+    // ?capture disables mouse-gravity; ?loop drives a seamless black-hole loop
+    // whose period equals this recording window (see App.tsx / renderer).
+    await page.goto(`http://localhost:${PORT}/?capture=1&loop=${LOOP_SECONDS}`, {
       waitUntil: "networkidle",
     });
     await page.waitForSelector(".cc-canvas", { timeout: 15000 });
