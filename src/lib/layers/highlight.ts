@@ -37,6 +37,11 @@ export class ProjectHighlightLayer implements Layer {
       if (p.hl < 0.02 || p.members.length === 0) continue;
       const a = p.hl;
 
+      // Contain all ctx state (stroke/line/text/alpha) for this project so it
+      // can't leak to later layers; the inner save/restore keeps shadowBlur on
+      // the curve only, not the rings or label.
+      ctx.save();
+
       ctx.save();
       ctx.shadowColor = rgba(p.hueA, 0.8 * a);
       ctx.shadowBlur = 10 * a;
@@ -60,7 +65,8 @@ export class ProjectHighlightLayer implements Layer {
       ctx.font = "13px ui-sans-serif, system-ui, sans-serif";
       ctx.textAlign = "left";
       ctx.fillText("✦ " + p.name, best.x + 10, best.y - 9);
-      ctx.globalAlpha = 1;
+
+      ctx.restore();
     }
   }
 }
