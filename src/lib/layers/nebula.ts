@@ -1,6 +1,45 @@
 import type { Layer, FrameContext } from "./types";
+import { centroid, radius } from "../projects";
+import { rgba } from "../color";
 
-/** §2.1 project nebula — implemented in Task 9. */
+/**
+ * §2.1 — one soft, breathing two-hue halo per project, drawn under the stars and
+ * with NO connecting lines (avoids the v1 eye-strain). Hue is decorative and set
+ * in projects.ts; here we just paint. Fades and pulls toward the centre as the
+ * black hole sucks (blackHole.suck), matching the nebula-animated mockup.
+ */
 export class ProjectNebulaLayer implements Layer {
-  draw(_f: FrameContext): void {}
+  draw(f: FrameContext): void {
+    const { ctx, tt, projects, blackHole, center } = f;
+    const regAlpha = Math.max(0, 1 - blackHole.suck * 1.3);
+    if (regAlpha <= 0.01) return;
+
+    projects.forEach((p, pi) => {
+      if (p.members.length === 0) return;
+      const c = centroid(p);
+      // Pull the halo toward the singularity as suck rises.
+      const cx = c.x + (center.x - c.x) * blackHole.suck;
+      const cy = c.y + (center.y - c.y) * blackHole.suck;
+
+      const breathe = 1 + 0.08 * Math.sin(tt * 0.6 + pi * 1.7);
+      const rad = (radius(p, c.x, c.y) + 40) * (1 - blackHole.suck * 0.6) * breathe;
+
+      const hues = [p.hueA, p.hueB];
+      for (let k = 0; k < 2; k++) {
+        const hue = hues[k];
+        const ang = tt * 0.25 + pi * 2 + k * Math.PI;
+        const off = rad * 0.22;
+        const bx = cx + Math.cos(ang) * off;
+        const by = cy + Math.sin(ang) * off;
+        const rg = ctx.createRadialGradient(bx, by, 0, bx, by, rad);
+        rg.addColorStop(0, rgba(hue, 0.17 * regAlpha));
+        rg.addColorStop(0.55, rgba(hue, 0.07 * regAlpha));
+        rg.addColorStop(1, "rgba(0,0,0,0)");
+        ctx.fillStyle = rg;
+        ctx.beginPath();
+        ctx.arc(bx, by, rad, 0, 6.283);
+        ctx.fill();
+      }
+    });
+  }
 }
