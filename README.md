@@ -1,93 +1,46 @@
 # Commit Constellation
 
-Turn your GitHub contributions into a drifting pink-orange nebula. Every day is a star — brighter stars are busier days, colours mark the day's language, and hovering any star shows its commits, date, and project. Multiple years are selectable. Updates itself daily via GitHub Actions with no server and no secrets in the browser.
+GitHub 貢獻資料 → Canvas 2D 星系動畫。每天一顆星，亮度是 commit 數，顏色是語言，hover 顯示專案名。每日 CI 自動更新，靜態站無後端。
 
 <picture>
   <source srcset="public/preview.webp" type="image/webp">
   <img src="public/preview.png" alt="Animated nebula of GitHub contributions">
 </picture>
 
-![license](https://img.shields.io/badge/license-MIT-green)
-
-> The README preview is an **animated WebP** (`public/preview.webp`) so the
-> twinkle and drift show even where Canvas can't run, with `public/preview.png`
-> as a still fallback. Both are regenerated daily by CI — see
-> `scripts/screenshot.mjs`.
-
-## Quick start (local, sample data)
+## Quick start
 
 ```bash
 npm install
-npm run fetch:mock   # generate sample data in public/data/ (per-year files + index.json)
-npm run dev          # open the printed localhost URL
+npm run fetch:mock   # 產生 public/data/ 樣本資料
+npm run dev
 ```
 
-## Deploy to GitHub Pages
+## Deploy (GitHub Pages)
 
-1. Fork or push this repo to GitHub.
-2. **Settings → Pages → Source = GitHub Actions**.
-3. **Actions → Deploy to GitHub Pages → Run workflow**.
-4. Site is live at `https://<your-username>.github.io/<repo-name>/`.
+1. **Settings → Pages → Source = GitHub Actions**
+2. **Actions → Deploy to GitHub Pages → Run workflow**
+3. 第一次用樣本資料；改用真實資料：**Actions → Update contribution data → Run workflow**
 
-The first deploy uses sample data. To switch to your real contributions:
+之後每天 UTC 04:17 自動更新。
 
-**Actions → Update contribution data → Run workflow**
+**Optional:**
 
-After that the data refreshes automatically every day at UTC 04:17.
-
-> No configuration required — your username is read from `github.repository_owner` automatically.
-
-### Optional settings
-
-| What | How |
+| 設定 | 方法 |
 |---|---|
-| Include **private** contributions | Add a fine-grained PAT (read-only `Contributions` + `Metadata`) as repo secret **`CONSTELLATION_TOKEN`** |
-| Choose which repos become constellations | Add repo variable **`PROJECT_REPOS`** = comma-separated names, e.g. `my-app,dotfiles` |
-
-## How auto-update works
-
-```
-daily cron ──► update-data.yml ──► fetch-contributions.mjs ──► contributions.json (committed)
-                                                                        │
-                                                            workflow_run ──► deploy.yml ──► GitHub Pages
-```
-
-The token never leaves CI. The browser only fetches a static JSON file.
-
-## Project layout
-
-```
-.
-├─ index.html                      # entry + strict CSP
-├─ src/
-│  ├─ main.tsx, App.tsx, index.css
-│  ├─ components/Constellation.tsx  # React wrapper + controls
-│  └─ lib/
-│     ├─ types.ts                   # data contract
-│     ├─ loadData.ts                # fetch + runtime validation
-│     └─ renderer.ts                # Canvas 2D renderer (reusable)
-├─ scripts/
-│  ├─ generate-mock.mjs             # sample data generator
-│  └─ fetch-contributions.mjs       # real GitHub data fetcher
-├─ public/data/                     # index.json + contributions-YYYY.json (generated, committed by CI)
-├─ .github/
-│  ├─ workflows/update-data.yml
-│  ├─ workflows/deploy.yml
-│  └─ dependabot.yml
-└─ SECURITY.md
-```
+| 包含 private 貢獻 | repo secret `CONSTELLATION_TOKEN`（fine-grained PAT，read-only Contributions + Metadata） |
+| 指定哪些 repo 成為星座 | repo variable `PROJECT_REPOS`（逗號分隔 repo 名稱） |
 
 ## Scripts
 
-| Command | Does |
+| 指令 | 用途 |
 |---|---|
-| `npm run dev` | Local dev server |
-| `npm run build` | Production build → `dist/` |
-| `npm run preview` | Preview production build |
-| `npm run typecheck` | Strict TypeScript check |
-| `npm run fetch:mock` | Generate sample data |
-| `npm run fetch:data` | Fetch real data (needs `GITHUB_TOKEN` + `GITHUB_USER`) |
+| `npm run dev` | 本機開發 |
+| `npm run build` | 生產建置 → `dist/` |
+| `npm run typecheck` | TypeScript 型別檢查 |
+| `npm test` | 單元測試 |
+| `npm run fetch:mock` | 產生樣本資料 |
+| `npm run fetch:data` | 抓真實資料（需 `GITHUB_TOKEN` + `GITHUB_USER`） |
 
 ## License
 
-MIT — see `LICENSE`.
+MIT
