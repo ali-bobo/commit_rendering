@@ -29,6 +29,7 @@ export class MeteorLayer implements Layer {
         this.next = 2 + Math.random() * 4;
       }
     }
+    // In-flight meteors always finish their fall; only spawning pauses (above).
     for (const me of this.meteors) {
       me.x += me.vx * 60 * dt;
       me.y += me.vy * 60 * dt;

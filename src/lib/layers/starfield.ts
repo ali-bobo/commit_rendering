@@ -52,6 +52,7 @@ export class StarfieldLayer implements Layer {
         ctx.moveTo(tx, ty);
         ctx.lineTo(s.x, s.y);
         ctx.stroke();
+        ctx.lineCap = "butt"; // restore default so later layers (meteors/hover) keep butt caps
       }
 
       const g = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, R * 4.5);
