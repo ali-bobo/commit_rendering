@@ -24,6 +24,7 @@ export function Constellation({ data, preview = false }: Props) {
     drift: preview ? 1.7 : 1,
     gravity: !preview,
     meteors: true,
+    blackHole: false,
   }));
 
   useEffect(() => {

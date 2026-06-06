@@ -7,4 +7,5 @@ export interface RendererOptions {
   drift: number; // 0..1 multiplier
   gravity: boolean;
   meteors: boolean;
+  blackHole: boolean; // live-site only; off during ?capture and reduced-motion
 }
