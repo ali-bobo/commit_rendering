@@ -1,6 +1,7 @@
 import type { Layer, FrameContext } from "./types";
 import { centroid, radius } from "../projects";
 import { rgba, mixHex } from "../color";
+import { snapFreq } from "../loopfreq";
 
 // Glows composite as light ("screen") so the galaxy photo behind shows through
 // and they read as luminous haze rather than flat colour decals. The hues are
@@ -26,6 +27,11 @@ export class ProjectNebulaLayer implements Layer {
     const regAlpha = Math.max(0, 1 - blackHole.suck * 1.3);
     if (regAlpha <= 0.01) return;
 
+    // In loop/capture mode, snap the breathing + blob-rotation frequencies to
+    // harmonics of the loop period so they return to phase at the seam.
+    const breatheFreq = f.loopPeriod ? snapFreq(0.6, f.loopPeriod) : 0.6;
+    const angFreq = f.loopPeriod ? snapFreq(0.25, f.loopPeriod) : 0.25;
+
     ctx.save();
     ctx.globalCompositeOperation = NEBULA_BLEND;
     projects.forEach((p, pi) => {
@@ -35,7 +41,7 @@ export class ProjectNebulaLayer implements Layer {
       const cx = c.x + (center.x - c.x) * blackHole.suck;
       const cy = c.y + (center.y - c.y) * blackHole.suck;
 
-      const breathe = 1 + 0.08 * Math.sin(tt * 0.6 + pi * 1.7);
+      const breathe = 1 + 0.08 * Math.sin(tt * breatheFreq + pi * 1.7);
       // radius() uses the UN-pulled centroid (c), not the pulled (cx,cy), so the
       // halo size stays tied to the star cluster's true spread even as it drifts
       // toward the singularity. Do not change to radius(p, cx, cy).
@@ -45,7 +51,7 @@ export class ProjectNebulaLayer implements Layer {
       for (let k = 0; k < 2; k++) {
         // Deepen the hue so screen blending adds *coloured* light, not white.
         const hue = mixHex(hues[k], "#000000", NEBULA_DEEPEN);
-        const ang = tt * 0.25 + pi * 2 + k * Math.PI;
+        const ang = tt * angFreq + pi * 2 + k * Math.PI;
         const off = rad * 0.22;
         const bx = cx + Math.cos(ang) * off;
         const by = cy + Math.sin(ang) * off;

@@ -1,5 +1,6 @@
 import type { Layer, FrameContext } from "./types";
 import { accentColor, mixHex, rgba } from "../color";
+import { snapFreq } from "../loopfreq";
 
 /**
  * Draws each lit star: a language-led glow with a light positional accent, a
@@ -22,7 +23,8 @@ export class StarfieldLayer implements Layer {
 
     for (const s of stars) {
       if (s.day.count === 0 || s.swallowed) continue;
-      const tw = 0.7 + 0.3 * Math.sin(tt * s.tws * 2 + s.twk * 6.28);
+      const twFreq = f.loopPeriod ? snapFreq(s.tws * 2, f.loopPeriod) : s.tws * 2;
+      const tw = 0.7 + 0.3 * Math.sin(tt * twFreq + s.twk * 6.28);
       const R = s.r * tw;
       const bright = 0.5 + Math.min(0.45, Math.log1p(s.day.count) * 0.16);
       const accentT = span > 1e-6 ? (s.t - this.litTMin) / span : 0.5;

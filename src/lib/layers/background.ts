@@ -1,5 +1,6 @@
 import type { Layer, FrameContext } from "./types";
 import { coverRect } from "../cover";
+import { snapFreq } from "../loopfreq";
 
 // Deep-plum→indigo backdrop, nudged slightly cooler (toward blue) so it sits
 // under the cool galaxy photo without a warm/cool clash. DATA colours (star
@@ -127,12 +128,13 @@ export class BackgroundLayer implements Layer {
     }
     ctx.restore();
 
-    // Distant stars.
+    // Distant stars. (Twinkle frequency snaps to the loop in capture mode.)
+    const bgTwFreq = f.loopPeriod ? snapFreq(1.5, f.loopPeriod) : 1.5;
     for (const s of this.bg) {
       const x = (s.x / 100) * W;
       const y = (s.y / 100) * H;
       ctx.globalAlpha =
-        0.2 + 0.5 * (0.5 + 0.5 * Math.sin(tt * 1.5 + s.tw * 6.28));
+        0.2 + 0.5 * (0.5 + 0.5 * Math.sin(tt * bgTwFreq + s.tw * 6.28));
       ctx.fillStyle = "#f3e9ff";
       ctx.beginPath();
       ctx.arc(x, y, s.r, 0, 6.283);
