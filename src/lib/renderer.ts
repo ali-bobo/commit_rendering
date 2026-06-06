@@ -1,26 +1,12 @@
-import type { ConstellationData, DayStar } from "./types";
-import { normalizedRadius } from "./starfield";
-import { arcPoint, arcTangent, arcNormal } from "./arc";
-import { FALLBACK_COLOR, accentColor, mixHex } from "./color";
+import type { ConstellationData } from "./types";
+import { arcPoint, arcNormal } from "./arc";
+import { accentColor, mixHex } from "./color";
+import { type Star, type MonthAnchor, buildStars, buildMonthAnchors } from "./layout";
 
 export interface RendererOptions {
   drift: number; // 0..1 multiplier
   gravity: boolean;
   meteors: boolean;
-}
-
-interface Star {
-  day: DayStar;
-  bx: number; // base position 0..100 (percent of canvas)
-  by: number;
-  x: number; // live pixel position
-  y: number;
-  r: number; // base radius from magnitude
-  t: number; // 0..1 progress along the year arc (drives drift phase + ordering)
-  twk: number; // twinkle phase
-  tws: number; // twinkle speed
-  col: string;
-  monthLabel: string;
 }
 
 interface Meteor {
@@ -31,87 +17,12 @@ interface Meteor {
   life: number;
 }
 
-const MONTHS = [
-  "1月", "2月", "3月", "4月", "5月", "6月",
-  "7月", "8月", "9月", "10月", "11月", "12月",
-];
-
 function seededRand(seed: number): () => number {
   let s = seed;
   return () => {
     s = Math.sin(s * 99.7) * 43758.5453;
     return s - Math.floor(s);
   };
-}
-
-/** Stable hash of an ISO date so a day's jitter never changes between renders. */
-function hashDate(s: string): number {
-  let h = 2166136261;
-  for (let i = 0; i < s.length; i++) {
-    h ^= s.charCodeAt(i);
-    h = Math.imul(h, 16777619);
-  }
-  return h >>> 0;
-}
-
-/**
- * Builds star layout from the data. Each day is placed along the year arc by its
- * date (oldest→newest = t 0→1), with a small seeded perpendicular jitter so the
- * arm reads as a star cloud rather than a hard line. Returned in date order,
- * which the time-thread relies on.
- */
-function buildStars(data: ConstellationData): Star[] {
-  const colorByLang = new Map<string, string>();
-  for (const l of data.languages) colorByLang.set(l.name, l.color);
-
-  const N = data.days.length;
-  // Radius is normalized to the user's OWN busiest day, so a sparse portfolio
-  // account still gets a prominent "hero" star instead of a field of uniform
-  // specks (see starfield.normalizedRadius).
-  const maxCount = data.days.reduce((m, d) => Math.max(m, d.count), 0);
-  const stars: Star[] = [];
-  data.days.forEach((day, i) => {
-    const t = N > 1 ? i / (N - 1) : 0.5;
-    const base = arcPoint(t);
-    const norm = arcNormal(t);
-    const tan = arcTangent(t);
-    const tlen = Math.hypot(tan.x, tan.y) || 1;
-    const rand = seededRand(hashDate(day.date));
-    // Perpendicular spread forms the band; a little along-arc jitter loosens it.
-    const jN = (rand() * 2 - 1) * 9.5;
-    const jT = (rand() * 2 - 1) * 2.5;
-    stars.push({
-      day,
-      bx: base.x + norm.x * jN + (tan.x / tlen) * jT,
-      by: base.y + norm.y * jN + (tan.y / tlen) * jT,
-      x: 0,
-      y: 0,
-      r: normalizedRadius(day.count, maxCount),
-      t,
-      twk: rand(),
-      tws: 0.6 + rand() * 1.3,
-      col: (day.language && colorByLang.get(day.language)) || FALLBACK_COLOR,
-      monthLabel: MONTHS[new Date(day.date + "T00:00:00").getMonth()] ?? "",
-    });
-  });
-  return stars;
-}
-
-/** Where each present month sits along the arc (mean t of its days). */
-function buildMonthAnchors(data: ConstellationData): { label: string; t: number }[] {
-  const N = data.days.length;
-  const acc = new Map<number, { sum: number; n: number }>();
-  data.days.forEach((day, i) => {
-    const t = N > 1 ? i / (N - 1) : 0.5;
-    const m = new Date(day.date + "T00:00:00").getMonth();
-    const e = acc.get(m) ?? { sum: 0, n: 0 };
-    e.sum += t;
-    e.n += 1;
-    acc.set(m, e);
-  });
-  return [...acc.entries()]
-    .sort((a, b) => a[0] - b[0])
-    .map(([m, e]) => ({ label: MONTHS[m] ?? `${m + 1}月`, t: e.sum / e.n }));
 }
 
 export interface HoverInfo {
@@ -140,7 +51,7 @@ export class ConstellationRenderer {
   private cv: HTMLCanvasElement;
   private ctx: CanvasRenderingContext2D;
   private stars: Star[];
-  private monthAnchors: { label: string; t: number }[];
+  private monthAnchors: MonthAnchor[];
   // Arc-progress span of the *active* days, so the glow accent ramp stretches
   // across whatever window the user actually committed in (not the whole year).
   private litTMin = 0;
