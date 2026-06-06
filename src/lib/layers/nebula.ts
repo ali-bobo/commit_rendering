@@ -1,12 +1,22 @@
 import type { Layer, FrameContext } from "./types";
 import { centroid, radius } from "../projects";
-import { rgba } from "../color";
+import { rgba, mixHex } from "../color";
+
+// Glows composite as light ("screen") so the galaxy photo behind shows through
+// and they read as luminous haze rather than flat colour decals. The hues are
+// deepened (mixed toward black) and the alphas lowered so screen blending stays
+// colourful instead of washing to white, and so the clouds don't mush together.
+const NEBULA_BLEND: GlobalCompositeOperation = "screen";
+const NEBULA_DEEPEN = 0.3; // mix each hue 30% toward black before screening
+const NEBULA_ALPHA_CORE = 0.11; // centre stop (was 0.17, source-over)
+const NEBULA_ALPHA_MID = 0.045; // mid stop (was 0.07)
 
 /**
  * §2.1 — one soft, breathing two-hue halo per project, drawn under the stars and
  * with NO connecting lines (avoids the v1 eye-strain). Hue is decorative and set
- * in projects.ts; here we just paint. Fades and pulls toward the centre as the
- * black hole sucks (blackHole.suck), matching the nebula-animated mockup.
+ * in projects.ts; here we just paint, screened over the background so it blends
+ * with the galaxy photo. Fades and pulls toward the centre as the black hole
+ * sucks (blackHole.suck), matching the nebula-animated mockup.
  */
 export class ProjectNebulaLayer implements Layer {
   draw(f: FrameContext): void {
@@ -16,6 +26,8 @@ export class ProjectNebulaLayer implements Layer {
     const regAlpha = Math.max(0, 1 - blackHole.suck * 1.3);
     if (regAlpha <= 0.01) return;
 
+    ctx.save();
+    ctx.globalCompositeOperation = NEBULA_BLEND;
     projects.forEach((p, pi) => {
       if (p.members.length === 0) return;
       const c = centroid(p);
@@ -31,14 +43,15 @@ export class ProjectNebulaLayer implements Layer {
 
       const hues = [p.hueA, p.hueB];
       for (let k = 0; k < 2; k++) {
-        const hue = hues[k];
+        // Deepen the hue so screen blending adds *coloured* light, not white.
+        const hue = mixHex(hues[k], "#000000", NEBULA_DEEPEN);
         const ang = tt * 0.25 + pi * 2 + k * Math.PI;
         const off = rad * 0.22;
         const bx = cx + Math.cos(ang) * off;
         const by = cy + Math.sin(ang) * off;
         const rg = ctx.createRadialGradient(bx, by, 0, bx, by, rad);
-        rg.addColorStop(0, rgba(hue, 0.17 * regAlpha));
-        rg.addColorStop(0.55, rgba(hue, 0.07 * regAlpha));
+        rg.addColorStop(0, rgba(hue, NEBULA_ALPHA_CORE * regAlpha));
+        rg.addColorStop(0.55, rgba(hue, NEBULA_ALPHA_MID * regAlpha));
         rg.addColorStop(1, "rgba(0,0,0,0)");
         ctx.fillStyle = rg;
         ctx.beginPath();
@@ -46,5 +59,6 @@ export class ProjectNebulaLayer implements Layer {
         ctx.fill();
       }
     });
+    ctx.restore();
   }
 }

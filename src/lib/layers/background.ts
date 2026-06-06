@@ -11,16 +11,17 @@ const GRADIENT_STOPS: [number, string][] = [
   [1, "#11132a"],
 ];
 
-// Warm→cool nebula blobs. The three warmest (coral/rose) were nudged toward cool
-// violet to meet the photo; the violet/indigo end is unchanged.
+// Warm→cool nebula blobs. The warm end was nudged toward cool violet to meet the
+// photo, then deepened + faded so they screen-blend over the photo as subtle
+// coloured light (not flat washes). Drawn with "screen" (see draw()).
 const NEBULA_BLOBS: { x: number; y: number; c: string }[] = [
-  { x: 14, y: 82, c: "rgba(200,150,180,0.11)" },
-  { x: 30, y: 70, c: "rgba(195,135,190,0.10)" },
-  { x: 46, y: 78, c: "rgba(230,110,185,0.08)" },
-  { x: 55, y: 46, c: "rgba(200,110,222,0.08)" },
-  { x: 70, y: 36, c: "rgba(160,110,255,0.08)" },
-  { x: 85, y: 26, c: "rgba(120,130,255,0.07)" },
-  { x: 62, y: 60, c: "rgba(190,150,185,0.06)" },
+  { x: 14, y: 82, c: "rgba(144,108,130,0.085)" },
+  { x: 30, y: 70, c: "rgba(140,97,137,0.08)" },
+  { x: 46, y: 78, c: "rgba(166,79,133,0.065)" },
+  { x: 55, y: 46, c: "rgba(144,79,160,0.065)" },
+  { x: 70, y: 36, c: "rgba(115,79,184,0.065)" },
+  { x: 85, y: 26, c: "rgba(86,94,184,0.055)" },
+  { x: 62, y: 60, c: "rgba(137,108,133,0.05)" },
 ];
 
 // Alpha of the cool gradient drawn OVER the photo: knocks it back to a recessed
@@ -111,7 +112,10 @@ export class BackgroundLayer implements Layer {
     ctx.fillRect(0, 0, W, H);
     ctx.globalAlpha = 1;
 
-    // Nebula glow blobs — warm end cooled to meet the photo.
+    // Nebula glow blobs — screened so they add coloured light to the photo and
+    // blend in rather than sitting on top as flat washes.
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
     for (const b of NEBULA_BLOBS) {
       const nx = (b.x / 100) * W;
       const ny = (b.y / 100) * H;
@@ -121,6 +125,7 @@ export class BackgroundLayer implements Layer {
       ctx.fillStyle = rg;
       ctx.fillRect(0, 0, W, H);
     }
+    ctx.restore();
 
     // Distant stars.
     for (const s of this.bg) {
