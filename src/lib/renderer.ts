@@ -2,12 +2,8 @@ import type { ConstellationData } from "./types";
 import { arcPoint, arcNormal } from "./arc";
 import { accentColor, mixHex } from "./color";
 import { type Star, type MonthAnchor, buildStars, buildMonthAnchors } from "./layout";
-
-export interface RendererOptions {
-  drift: number; // 0..1 multiplier
-  gravity: boolean;
-  meteors: boolean;
-}
+import type { RendererOptions } from "./renderer-options";
+export type { RendererOptions };
 
 interface Meteor {
   x: number;

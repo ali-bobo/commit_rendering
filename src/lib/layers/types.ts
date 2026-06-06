@@ -1,7 +1,7 @@
 import type { Star, MonthAnchor } from "../layout";
 import type { ProjectGroup } from "../projects";
 import type { PhaseState } from "../blackhole";
-import type { RendererOptions } from "../renderer";
+import type { RendererOptions } from "../renderer-options";
 
 export interface HoverState {
   project: ProjectGroup | null;
