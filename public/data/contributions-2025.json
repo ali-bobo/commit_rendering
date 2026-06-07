@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-06T13:44:47.001Z",
+  "generatedAt": "2026-06-07T05:51:11.263Z",
   "year": 2025,
   "totalContributions": 8,
   "isMock": false,
@@ -1834,10 +1834,6 @@
   ],
   "languages": [
     {
-      "name": "JavaScript",
-      "color": "#ff9e7a"
-    },
-    {
       "name": "TypeScript",
       "color": "#6c7bff"
     },
@@ -1856,14 +1852,14 @@
   ],
   "projects": [
     {
-      "name": "maplestory-platformer",
+      "name": "commit_rendering",
       "starDates": [
         "2025-10-21",
         "2025-11-15"
       ]
     },
     {
-      "name": "commit_rendering",
+      "name": "maplestory-platformer",
       "starDates": []
     },
     {
