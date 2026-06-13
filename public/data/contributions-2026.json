@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-12T05:55:08.165Z",
+  "generatedAt": "2026-06-13T05:46:56.689Z",
   "year": 2026,
-  "totalContributions": 239,
+  "totalContributions": 298,
   "isMock": false,
   "days": [
     {
@@ -479,12 +479,12 @@
     {
       "date": "2026-04-05",
       "count": 6,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-06",
       "count": 15,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-07",
@@ -494,12 +494,12 @@
     {
       "date": "2026-04-08",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-09",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-10",
@@ -509,12 +509,12 @@
     {
       "date": "2026-04-11",
       "count": 10,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-12",
       "count": 36,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-13",
@@ -534,47 +534,47 @@
     {
       "date": "2026-04-16",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-17",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-18",
       "count": 22,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-19",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-20",
       "count": 8,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-21",
       "count": 8,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-22",
       "count": 8,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-23",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-24",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-25",
@@ -584,27 +584,27 @@
     {
       "date": "2026-04-26",
       "count": 5,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-27",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-28",
       "count": 5,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-29",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-04-30",
       "count": 3,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-01",
@@ -629,12 +629,12 @@
     {
       "date": "2026-05-05",
       "count": 3,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-06",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-07",
@@ -654,12 +654,12 @@
     {
       "date": "2026-05-10",
       "count": 12,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-11",
       "count": 3,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-12",
@@ -699,7 +699,7 @@
     {
       "date": "2026-05-19",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-20",
@@ -709,7 +709,7 @@
     {
       "date": "2026-05-21",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-22",
@@ -719,7 +719,7 @@
     {
       "date": "2026-05-23",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-24",
@@ -729,7 +729,7 @@
     {
       "date": "2026-05-25",
       "count": 2,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-05-26",
@@ -794,7 +794,7 @@
     {
       "date": "2026-06-07",
       "count": 1,
-      "language": "TypeScript"
+      "language": "Rust"
     },
     {
       "date": "2026-06-08",
@@ -808,23 +808,23 @@
     },
     {
       "date": "2026-06-10",
-      "count": 1,
-      "language": "TypeScript"
+      "count": 5,
+      "language": "Rust"
     },
     {
       "date": "2026-06-11",
-      "count": 0,
-      "language": null
+      "count": 7,
+      "language": "Rust"
     },
     {
       "date": "2026-06-12",
-      "count": 0,
-      "language": null
+      "count": 26,
+      "language": "Rust"
     },
     {
       "date": "2026-06-13",
-      "count": 0,
-      "language": null
+      "count": 22,
+      "language": "Rust"
     },
     {
       "date": "2026-06-14",
@@ -1838,6 +1838,10 @@
       "color": "#6c7bff"
     },
     {
+      "name": "Rust",
+      "color": "#ff6f9c"
+    },
+    {
       "name": "HTML",
       "color": "#9b6cff"
     },
@@ -1851,6 +1855,15 @@
     }
   ],
   "projects": [
+    {
+      "name": "cairn",
+      "starDates": [
+        "2026-06-13",
+        "2026-06-12",
+        "2026-06-11",
+        "2026-06-10"
+      ]
+    },
     {
       "name": "commit_rendering",
       "starDates": [
@@ -1872,11 +1885,11 @@
     {
       "name": "cybercv-resume",
       "starDates": [
-        "2026-06-01",
-        "2026-06-02",
         "2026-04-05",
         "2026-06-04",
-        "2026-04-26"
+        "2026-04-26",
+        "2026-04-28",
+        "2026-06-10"
       ]
     },
     {
@@ -1891,40 +1904,31 @@
     {
       "name": "basic_check_tookit",
       "starDates": [
-        "2026-05-11",
         "2026-02-05",
         "2026-04-16",
         "2026-04-19",
-        "2026-04-24"
+        "2026-04-24",
+        "2026-04-27"
       ]
     },
     {
       "name": "test-1",
       "starDates": [
-        "2026-04-27",
         "2026-05-19",
         "2026-05-23",
         "2026-05-25",
-        "2026-04-08"
+        "2026-04-08",
+        "2026-04-09"
       ]
     },
     {
       "name": "linux-learning-tool",
       "starDates": [
-        "2026-04-09",
         "2026-04-17",
         "2026-04-23",
         "2026-04-29",
-        "2026-05-06"
-      ]
-    },
-    {
-      "name": "mdr_practice_report",
-      "starDates": [
-        "2026-05-21",
-        "2026-06-03",
-        "2026-06-07",
-        "2026-06-10"
+        "2026-05-06",
+        "2026-05-21"
       ]
     }
   ]
