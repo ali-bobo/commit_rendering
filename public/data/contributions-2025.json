@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-06-13T05:46:56.689Z",
+  "generatedAt": "2026-06-14T05:55:24.437Z",
   "year": 2025,
   "totalContributions": 8,
   "isMock": false,
@@ -1834,12 +1834,12 @@
   ],
   "languages": [
     {
-      "name": "TypeScript",
-      "color": "#6c7bff"
-    },
-    {
       "name": "Rust",
       "color": "#ff6f9c"
+    },
+    {
+      "name": "TypeScript",
+      "color": "#6c7bff"
     },
     {
       "name": "HTML",
