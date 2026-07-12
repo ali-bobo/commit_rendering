@@ -30,6 +30,18 @@ const NEBULA_BLOBS: { x: number; y: number; c: string }[] = [
 const PHOTO_OVERLAY_ALPHA = 0.5;
 const PHOTO_BLUR_PX = 3;
 
+// Vignette: darkens the corners to push the eye toward the star cloud and to
+// suppress background-photo noise at the edges. Centred on the black-hole
+// centre so the two effects share one focal point. Drawn last in this layer
+// so the distant decorative stars dim with it (depth cue) while data stars,
+// drawn by later layers, stay untouched. A single radial fill per frame is
+// cheap enough that an offscreen cache would be over-engineering.
+const VIGNETTE_ALPHA = 0.32;
+const VIGNETTE_INNER = 0.55; // gradient stop where the darkening begins
+const VIGNETTE_CX = 0.5; // × W
+const VIGNETTE_CY = 0.46; // × H (matches the black-hole centre)
+const VIGNETTE_R = 0.72; // × hypot(W, H)
+
 /**
  * Deep-plum gradient (optionally over a cover-fit, blurred galaxy photo), warm→
  * cool nebula blobs, and twinkling distant stars. If a photo URL is given it is
@@ -141,5 +153,15 @@ export class BackgroundLayer implements Layer {
       ctx.fill();
     }
     ctx.globalAlpha = 1;
+
+    // Vignette (see constants above).
+    const vx = VIGNETTE_CX * W;
+    const vy = VIGNETTE_CY * H;
+    const vr = VIGNETTE_R * Math.hypot(W, H);
+    const vg = ctx.createRadialGradient(vx, vy, 0, vx, vy, vr);
+    vg.addColorStop(VIGNETTE_INNER, "rgba(8,6,18,0)");
+    vg.addColorStop(1, `rgba(8,6,18,${VIGNETTE_ALPHA})`);
+    ctx.fillStyle = vg;
+    ctx.fillRect(0, 0, W, H);
   }
 }
