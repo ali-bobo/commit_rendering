@@ -1,16 +1,31 @@
 import type { Layer, FrameContext } from "./types";
 import { accentColor, mixHex, rgba } from "../color";
 import { snapFreq } from "../loopfreq";
+import { topStarIndices } from "../spikes";
+
+// Diffraction spikes: only the year's brightest few stars get them, echoing
+// how only the brightest stars bloom in astrophotographs. "＋" (not "×")
+// matches reflector-telescope imagery and clashes least with the horizontal
+// month labels.
+const SPIKE_COUNT = 4; // stars that receive spikes
+const SPIKE_LEN_R = 7; // ray length = R * this (R includes twinkle → spikes breathe)
+const SPIKE_WIDTH = 1.1; // px
+const SPIKE_ALPHA = 0.45;
+const SPIKE_WHITE_MIX = 0.65; // ray colour = bodyCol mixed toward white
 
 /**
  * Draws each lit star: a language-led glow with a light positional accent, a
  * white core, and a coloured body. Position is already resolved by the
  * orchestrator (drift + optional black-hole transform); swallowed stars are
- * skipped. A tail is drawn when the black hole is pulling.
+ * skipped. A tail is drawn when the black hole is pulling. The brightest
+ * SPIKE_COUNT stars additionally get diffraction spikes.
  */
 export class StarfieldLayer implements Layer {
   private litTMin: number;
   private litTMax: number;
+  // Star indices that get diffraction spikes. Computed once from the (stable)
+  // star list on first draw; stars are in date order so index = day index.
+  private spiked: Set<number> | null = null;
 
   constructor(litTMin: number, litTMax: number) {
     this.litTMin = litTMin;
@@ -21,6 +36,11 @@ export class StarfieldLayer implements Layer {
     const { ctx, tt, stars, blackHole } = f;
     const span = this.litTMax - this.litTMin;
     const hoverProj = f.hover.project;
+    if (this.spiked === null) {
+      this.spiked = new Set(
+        topStarIndices(stars.map((s) => s.day), SPIKE_COUNT)
+      );
+    }
     // Stars fade in over 1.5s on initial load and year switches (tt resets to 0
     // on each new renderer). Disabled in loop/capture mode (WebP must start at
     // full brightness) and reduced-motion (instant appearance is preferred).
@@ -34,7 +54,8 @@ export class StarfieldLayer implements Layer {
     const breathFreq = f.loopPeriod ? snapFreq(0.45, f.loopPeriod) : 0.45;
     const breathe = f.reduceMotion ? 1 : 1 + 0.14 * Math.sin(tt * breathFreq);
 
-    for (const s of stars) {
+    for (let si = 0; si < stars.length; si++) {
+      const s = stars[si];
       if (s.day.count === 0 || s.swallowed) continue;
       // Focus dimming: non-members fade to 0.3 opacity as the hovered project's
       // hl value approaches 1, giving a smooth spotlight effect.
@@ -89,6 +110,32 @@ export class StarfieldLayer implements Layer {
       ctx.beginPath();
       ctx.arc(s.x, s.y, R * 4.5 * breathe, 0, 6.283);
       ctx.fill();
+
+      // Diffraction spikes: over the glow, under the white core. They share
+      // the star's twinkle/fade/dim factors so they behave like part of the
+      // star, and fade out with the black-hole tail so they never fight it.
+      if (this.spiked.has(si)) {
+        const spikeA = SPIKE_ALPHA * tw * alpha * (1 - blackHole.tail);
+        if (spikeA > 0.005) {
+          const len = R * SPIKE_LEN_R;
+          const col = mixHex(bodyCol, "#ffffff", SPIKE_WHITE_MIX);
+          ctx.globalAlpha = spikeA;
+          ctx.lineWidth = SPIKE_WIDTH;
+          for (const [ux, uy] of [[1, 0], [-1, 0], [0, 1], [0, -1]] as const) {
+            const ex = s.x + ux * len;
+            const ey = s.y + uy * len;
+            const sg = ctx.createLinearGradient(s.x, s.y, ex, ey);
+            sg.addColorStop(0, rgba(col, 1));
+            sg.addColorStop(1, rgba(col, 0));
+            ctx.strokeStyle = sg;
+            ctx.beginPath();
+            ctx.moveTo(s.x, s.y);
+            ctx.lineTo(ex, ey);
+            ctx.stroke();
+          }
+        }
+      }
+
       ctx.fillStyle = "#fff";
       ctx.globalAlpha = alpha;
       ctx.beginPath();
