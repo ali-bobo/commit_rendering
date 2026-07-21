@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-07-20T05:27:59.583Z",
+  "generatedAt": "2026-07-21T05:25:11.221Z",
   "year": 2025,
-  "totalContributions": 8,
+  "totalContributions": 4,
   "isMock": false,
   "days": [
     {
@@ -1473,8 +1473,8 @@
     },
     {
       "date": "2025-10-21",
-      "count": 5,
-      "language": "HTML"
+      "count": 1,
+      "language": "Rust"
     },
     {
       "date": "2025-10-22",
@@ -1842,12 +1842,12 @@
       "color": "#6c7bff"
     },
     {
-      "name": "HTML",
-      "color": "#9b6cff"
-    },
-    {
       "name": "CSS",
       "color": "#8a78ff"
+    },
+    {
+      "name": "HTML",
+      "color": "#9b6cff"
     },
     {
       "name": "Shell",
@@ -1858,8 +1858,8 @@
     {
       "name": "cairn",
       "starDates": [
-        "2025-10-21",
-        "2025-11-15"
+        "2025-11-15",
+        "2025-10-21"
       ]
     },
     {
@@ -1883,11 +1883,11 @@
       "starDates": []
     },
     {
-      "name": "test-1",
+      "name": "linux-learning-tool",
       "starDates": []
     },
     {
-      "name": "linux-learning-tool",
+      "name": "mdr_practice_report",
       "starDates": []
     }
   ]

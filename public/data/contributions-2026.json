@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-07-20T05:27:59.583Z",
+  "generatedAt": "2026-07-21T05:25:11.221Z",
   "year": 2026,
   "totalContributions": 838,
   "isMock": false,
@@ -1842,12 +1842,12 @@
       "color": "#6c7bff"
     },
     {
-      "name": "HTML",
-      "color": "#9b6cff"
-    },
-    {
       "name": "CSS",
       "color": "#8a78ff"
+    },
+    {
+      "name": "HTML",
+      "color": "#9b6cff"
     },
     {
       "name": "Shell",
@@ -1914,7 +1914,7 @@
       ]
     },
     {
-      "name": "test-1",
+      "name": "linux-learning-tool",
       "starDates": [
         "2026-04-20",
         "2026-04-21",
@@ -1924,7 +1924,7 @@
       ]
     },
     {
-      "name": "linux-learning-tool",
+      "name": "mdr_practice_report",
       "starDates": [
         "2026-06-01",
         "2026-06-02",
