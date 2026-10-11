@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-10-10T10:36:23.864Z",
+  "generatedAt": "2026-10-11T10:49:06.875Z",
   "year": 2025,
   "totalContributions": 4,
   "isMock": false,
@@ -1850,6 +1850,10 @@
       "color": "#9b6cff"
     },
     {
+      "name": "JavaScript",
+      "color": "#ff9e7a"
+    },
+    {
       "name": "Shell",
       "color": "#ec64bb"
     }
@@ -1863,11 +1867,11 @@
       ]
     },
     {
-      "name": "commit_rendering",
+      "name": "maplestory-platformer",
       "starDates": []
     },
     {
-      "name": "maplestory-platformer",
+      "name": "commit_rendering",
       "starDates": []
     },
     {
