@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-10-11T10:49:06.875Z",
+  "generatedAt": "2026-10-12T11:58:18.929Z",
   "year": 2025,
   "totalContributions": 4,
   "isMock": false,
@@ -1842,16 +1842,16 @@
       "color": "#6c7bff"
     },
     {
+      "name": "JavaScript",
+      "color": "#ff9e7a"
+    },
+    {
       "name": "CSS",
       "color": "#8a78ff"
     },
     {
       "name": "HTML",
       "color": "#9b6cff"
-    },
-    {
-      "name": "JavaScript",
-      "color": "#ff9e7a"
     },
     {
       "name": "Shell",

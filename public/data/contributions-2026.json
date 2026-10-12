@@ -1,9 +1,9 @@
 {
   "schemaVersion": 1,
   "user": "ali-bobo",
-  "generatedAt": "2026-10-11T10:49:06.875Z",
+  "generatedAt": "2026-10-12T11:58:18.929Z",
   "year": 2026,
-  "totalContributions": 851,
+  "totalContributions": 857,
   "isMock": false,
   "days": [
     {
@@ -1423,13 +1423,13 @@
     },
     {
       "date": "2026-10-11",
-      "count": 8,
+      "count": 12,
       "language": "JavaScript"
     },
     {
       "date": "2026-10-12",
-      "count": 0,
-      "language": null
+      "count": 2,
+      "language": "JavaScript"
     },
     {
       "date": "2026-10-13",
@@ -1842,16 +1842,16 @@
       "color": "#6c7bff"
     },
     {
+      "name": "JavaScript",
+      "color": "#ff9e7a"
+    },
+    {
       "name": "CSS",
       "color": "#8a78ff"
     },
     {
       "name": "HTML",
       "color": "#9b6cff"
-    },
-    {
-      "name": "JavaScript",
-      "color": "#ff9e7a"
     },
     {
       "name": "Shell",
@@ -1872,11 +1872,11 @@
     {
       "name": "maplestory-platformer",
       "starDates": [
+        "2026-10-12",
         "2026-10-11",
         "2026-05-25",
         "2026-05-23",
-        "2026-04-12",
-        "2026-04-11"
+        "2026-04-12"
       ]
     },
     {
@@ -1913,25 +1913,25 @@
       "starDates": [
         "2026-06-17",
         "2026-07-10",
+        "2026-10-11",
         "2026-04-11",
-        "2026-07-04",
-        "2026-06-23"
+        "2026-07-04"
       ]
     },
     {
       "name": "linux-learning-tool",
       "starDates": [
+        "2026-06-23",
         "2026-04-20",
         "2026-04-21",
         "2026-04-22",
-        "2026-05-31",
-        "2026-07-08"
+        "2026-05-31"
       ]
     },
     {
       "name": "mdr_practice_report",
       "starDates": [
-        "2026-10-11",
+        "2026-07-08",
         "2026-06-01",
         "2026-06-02",
         "2026-06-11",
